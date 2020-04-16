@@ -12,14 +12,31 @@ public class Produit implements Serializable {
     private String            nom;
     private Integer           qte;
     private Integer           prix;
+    private Double            prix_promo;
 
     public Produit() {}
+    
 
     public Produit(Integer id, String nom, Integer qte, Integer prix) {
         this.id   = id;
         this.nom  = nom;
         this.qte  = qte;
         this.prix = prix;
+    }
+    public Produit(int id) {
+        this.id = id;
+    }
+
+    public Produit(int id, String nom) {
+        this.id = id;
+        this.nom = nom;
+    }
+
+    public Produit(int id, int qte, int prix, Double prix_promo) {
+        this.id = id;
+        this.qte = qte;
+        this.prix = prix;
+        this.prix_promo = prix_promo;
     }
 
     @Override
@@ -57,6 +74,14 @@ public class Produit implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Double getPrix_promo() {
+        return prix_promo;
+    }
+
+    public void setPrix_promo(Double prix_promo) {
+        this.prix_promo = prix_promo;
     }
 
     public String getNom() {
