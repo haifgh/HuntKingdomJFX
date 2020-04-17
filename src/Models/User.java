@@ -68,6 +68,10 @@ public class User implements Serializable {
        
     }
 
+    public User(int i, String java, String java0, String javajava, String java2java, boolean b, String java1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
    
 
     public Integer getId() {
