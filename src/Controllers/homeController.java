@@ -301,21 +301,28 @@ public class homeController implements Initializable {
          VB.getChildren().add(h1);
          btnsupp.setOnAction(event -> DeletePost(evv.getId()));
          btnmod.setOnAction(event -> UpdatePost(evv.getId()));
+         btnjaime.setGraphic(likeimg);
+          btnjaimep.setGraphic(dislikeimg);
          if (lj.size()!=0){
-         btnjaime.setGraphic(likeimga);
+       /*  btnjaime.setGraphic(likeimga);
          btnjaime.setDisable(true);
          btnjaimep.setGraphic(dislikeimg);
-         btnjaimep.setDisable(false);
+         btnjaimep.setDisable(false);*/
+         h2.getChildren().remove(btnjaime);
+       
          for (Jaime ejj : lj) {
                btnjaimep.setOnAction(event -> dislikePost(ejj.getId()));
           }
          }
+         
          else if (lj.size()==0){
-         btnjaime.setGraphic(likeimg);
+      /*   btnjaime.setGraphic(likeimg);
          btnjaime.setDisable(false);
          btnjaimep.setGraphic(dislikeimga);
-         btnjaimep.setDisable(true);
+         btnjaimep.setDisable(true);*/
          btnjaime.setOnAction(event ->likePost(evv.getId()));
+         h2.getChildren().remove(btnjaimep);
+      
          }
          
         }
@@ -342,7 +349,6 @@ public class homeController implements Initializable {
           private void dislikePost(int id ) {
         ServiceJaime sp = new ServiceJaime();
         sp.supprimerjaime(id);
-        JOptionPane.showMessageDialog(null, "jaime supp !");
          VB.getChildren().clear();
          VBB.getChildren().clear();
          ReadPost();
@@ -579,10 +585,7 @@ public class homeController implements Initializable {
          sl.setContent(VBR);
          String stylep ="-fx-background-color:none;" ;          
          sl.setStyle(stylep);
-         pnlcl.getChildren().add(sl);
-          
-          
-          
+         pnlcl.getChildren().add(sl);    
          u=su.findById(evv.getReclamer());
          Text objet = new Text(evv.getObject());
          Text contenu = new Text(evv.getContenu());
