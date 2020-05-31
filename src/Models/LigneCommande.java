@@ -1,5 +1,5 @@
 
-package Models;
+package entities;
 
 import java.io.Serializable;
 
@@ -16,24 +16,24 @@ public class LigneCommande implements Serializable {
    
     private Integer quantity;
 
-    private Double price;
+    private Float price;
     
     private Integer idProduit;
     
-    private Integer idC;
+    private Integer idLC;
     
     public LigneCommande() {
     }
 
-    public LigneCommande(Integer id, Integer quantity, Double price, Integer idProduit, Integer idC) {
+    public LigneCommande(Integer id, Integer quantity, Float price, Integer idProduit, Integer idLC) {
         this.id = id;
         this.quantity = quantity;
         this.price = price;
         this.idProduit = idProduit;
-        this.idC = idC;
+        this.idLC = idLC;
     }
 
-    public LigneCommande(Integer quantity, Double price, Integer idProduit) {
+    public LigneCommande(Integer quantity, Float price, Integer idProduit) {
         this.quantity = quantity;
         this.price = price;
         this.idProduit = idProduit;
@@ -47,12 +47,12 @@ public class LigneCommande implements Serializable {
         this.idProduit = idProduit;
     }
 
-    public Integer getIdC() {
-        return idC;
+    public Integer getIdLC() {
+        return idLC;
     }
 
-    public void setIdC(Integer idC) {
-        this.idC = idC;
+    public void setIdLC(Integer idLC) {
+        this.idLC = idLC;
     }
   
 
@@ -72,11 +72,11 @@ public class LigneCommande implements Serializable {
         this.quantity = quantity;
     }
 
-    public Double getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
        
@@ -100,8 +100,7 @@ public class LigneCommande implements Serializable {
 
     @Override
     public String toString() {
-        return "LigneCommande{" + "id=" + id + ", quantity=" + quantity + ", price=" + price + ", idProduit=" + idProduit + ", idC=" + idC + '}';
+        return "pidev.entities.Produit[ id=" + id + " ]";
     }
-   
 
 }

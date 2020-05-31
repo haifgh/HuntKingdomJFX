@@ -95,4 +95,40 @@ public class ServiceFollow implements IFollowServices {
         return ls;
         
     }
+        public List<Follow> following (int user ){
+         List<Follow> ls =new ArrayList<Follow>();
+        try {
+           
+            PreparedStatement pt = con.prepareStatement("select * from follow where follower=?");
+            pt.setInt(1, user);
+            ResultSet rs = pt.executeQuery();
+            while(rs.next()){
+                
+                Follow f = new Follow(rs.getInt(1),rs.getInt(2), rs.getInt(3));
+                ls.add(f);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceFollow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ls ;
+        
+    }
+        public List<Follow> follower (int user ){
+         List<Follow> ls =new ArrayList<Follow>();
+        try {
+           
+            PreparedStatement pt = con.prepareStatement("select * from follow where followed =?");
+            pt.setInt(1, user);
+            ResultSet rs = pt.executeQuery();
+            while(rs.next()){
+                
+                Follow f = new Follow(rs.getInt(1),rs.getInt(2), rs.getInt(3));
+                ls.add(f);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceFollow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ls ;
+        
+    }
 }

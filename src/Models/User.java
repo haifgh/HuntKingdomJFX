@@ -1,5 +1,5 @@
 
-package Models;
+package entities;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -11,6 +11,8 @@ import java.sql.Timestamp;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    
 
 
     private Integer id;
@@ -66,6 +68,16 @@ public class User implements Serializable {
         this.passwordRequestedAt = passwordRequestedAt;
         this.roles = roles;
        
+    }
+
+    public User(Integer id, String username, String usernameCanonical, String email, String emailCanonical, boolean enabled, String password) {
+        this.id = id;
+        this.username = username;
+        this.usernameCanonical = usernameCanonical;
+        this.email = email;
+        this.emailCanonical = emailCanonical;
+        this.enabled = enabled;
+        this.password = password;
     }
 
    
@@ -161,14 +173,7 @@ public class User implements Serializable {
     public String getRoles() {
         return roles;
     }
-    public boolean isAdmin() {
-        
-        if (this.getRoles().equals("a:1:{i:0;s:10:\"ROLE_ADMIN\";}")) {
-            return true;
-        }
-        return false;
-    }
-    
+
     public void setRoles(String roles) {
         this.roles = roles;
     }
@@ -189,10 +194,10 @@ public class User implements Serializable {
         User other = (User) object;
         return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
-  @Override
+
+    @Override
     public String toString() {
-        return "User{" + "id=" + id + ", username=" + username + ", usernameCanonical=" + usernameCanonical + ", email=" + email + ", emailCanonical=" + emailCanonical + ", enabled=" + enabled + ", salt=" + salt + ", password=" + password + ", lastLogin=" + lastLogin + ", confirmationToken=" + confirmationToken + ", passwordRequestedAt=" + passwordRequestedAt + ", roles=" + roles + '}';
+        return username;
     }
-   
 
 }

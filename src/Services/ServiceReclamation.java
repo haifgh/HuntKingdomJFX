@@ -34,7 +34,7 @@ public class ServiceReclamation implements IReclamationServices {
         String date= new SimpleDateFormat("yyyy-MM-dd").format(date1);
         r.setDate(date);
             Statement st = con.createStatement();
-            String req="insert into reclamation values ("+r.getId()+",'"+UserSession.getUser().getId()+"','"+r.getObject()+"','"+r.getContenu()+"','"+r.getDate()+"',"+r.getReclamer()+")";
+           String req="insert into reclamation values ("+r.getId()+",'"+UserSession.getUser().getId()+"','"+r.getReclamer()+"','"+r.getObject()+"','"+r.getContenu()+"','"+r.getDate()+"')";
             st.executeUpdate(req);
         } catch (SQLException ex) {
             Logger.getLogger(ServiceReclamation.class.getName()).log(Level.SEVERE, null, ex);
@@ -70,15 +70,12 @@ public class ServiceReclamation implements IReclamationServices {
             pt.setInt(1, user);
             ResultSet rs = pt.executeQuery();
             while(rs.next()){
-               Reclamation r = new Reclamation (rs.getString(5), rs.getString(4), rs.getString(3), rs.getInt(1), rs.getInt(6), rs.getInt(2));
-                //Reclamation r = new Reclamation (rs.getInt(6), rs.getInt(2));
+              // Reclamation r = new Reclamation (rs.getString(5), rs.getString(4), rs.getString(3), rs.getInt(1), rs.getInt(6), rs.getInt(2));
+               Reclamation r = new Reclamation (rs.getString(6), rs.getString(5), rs.getString(4), rs.getInt(1), rs.getInt(3), rs.getInt(2));
                 
                 ls.add(r);
             }
             
-            for (Reclamation r : ls){
-                System.out.println(r.toString());
-            }
         } catch (SQLException ex) {
             Logger.getLogger(ServiceReclamation.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -97,12 +94,28 @@ public class ServiceReclamation implements IReclamationServices {
                 ls.add(r);
             }
             
-            for (Reclamation r : ls){
-                System.out.println(r.toString());
-            }
         } catch (SQLException ex) {
             Logger.getLogger(ServiceReclamation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return ls;
+    }
+    public void showReclamation(int id ){
+        try {
+           
+            PreparedStatement pt = con.prepareStatement("select * from reclamation where id=?");
+            pt.setInt(1, id);
+            ResultSet rs = pt.executeQuery();
+            while(rs.next()){
+               Reclamation r = new Reclamation (rs.getString(5), rs.getString(4), rs.getString(3), rs.getInt(1), rs.getInt(6), rs.getInt(2));
+                //Reclamation r = new Reclamation (rs.getInt(6), rs.getInt(2));
+                
+            }
+            
+            
+            }
+         catch (SQLException ex) {
+            Logger.getLogger(ServiceReclamation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
     }
 }

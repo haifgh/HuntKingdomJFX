@@ -77,10 +77,6 @@ public class ServicePost implements IPostServices {
                 ls.add(p);
             }
             
-            for (Post p : ls){
-                System.out.println(p.toString());
-            }
-            
         } catch (SQLException ex) {
             Logger.getLogger(ServicePost.class.getName()).log(Level.SEVERE, null, ex);
         }
