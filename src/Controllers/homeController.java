@@ -128,6 +128,8 @@ public class homeController implements Initializable {
     private Pane pnlst;
     @FXML
     private Pane pnlcl;
+    @FXML
+    private Pane pnlus;
   
     /**
      * Initializes the controller class.
@@ -138,9 +140,9 @@ public class homeController implements Initializable {
          UserServices su = new UserServices();
          User u = new User();
          u=su.findById(UserSession.getUser().getId());
-        username.setText(u.getUsername());
-        usernamee.setText(u.getUsername());
-        ReadPost();  
+         username.setText(u.getUsername());
+         usernamee.setText(u.getUsername());
+         ReadPost();  
          List<User> ls= new ArrayList<>();
          ls = su.findUsers() ;   
          TextFields.bindAutoCompletion(searchbar,ls );
@@ -188,22 +190,12 @@ public class homeController implements Initializable {
         }
     }
     
-    
-
-    private void hideButtonAction(Button D) {
-        D.setVisible(false);
-    }
-    private void showButtonAction(Button D) {
-        D.setVisible(true);
-       
-    }
+   
 
     @FXML
     private void CreatePost(ActionEvent event) {
         ServicePost sp = new ServicePost();
         sp.ajouterPost(new Post(testpost.getText()));
-        
-        JOptionPane.showMessageDialog(null, "Post ajoutée !");
          VB.getChildren().clear();
         ReadPost();
         
@@ -211,8 +203,7 @@ public class homeController implements Initializable {
     private void DeletePost(int id ) {
         ServicePost sp = new ServicePost();
         sp.supprimerpost(id);
-        
-        JOptionPane.showMessageDialog(null, "Post supprimé !");
+    
          VB.getChildren().clear();
           VBH.getChildren().clear();
         ReadPost();
@@ -270,9 +261,9 @@ public class homeController implements Initializable {
          ht.getChildren().add(btnmod); 
        //  ht.getChildren().add(h1); 
       //  h1.getChildren().add(ct); 
-        h3.getChildren().add(user); 
-        h3.getChildren().add(ct); 
-        h1.getChildren().add(h3);
+         h3.getChildren().add(user); 
+         h3.getChildren().add(ct); 
+         h1.getChildren().add(h3);
          h1.getChildren().add(date);
          h1.getChildren().add(contenu);
          h2.getChildren().add(nbjaime);
@@ -289,8 +280,8 @@ public class homeController implements Initializable {
          String style = "-fx-background-color: #FFFFFF; -fx-padding: 20 ;";
          String stylU = "-fx-font-weight: bold; -fx-font-size: 18px;";
         
-          btnmod.setGraphic(editimg);
-          btnsupp.setGraphic(deleteimg);
+         btnmod.setGraphic(editimg);
+         btnsupp.setGraphic(deleteimg);
          h1.setStyle(style);
          user.setStyle(stylU);
          nbjaime.setStyle(stylU);
@@ -301,8 +292,8 @@ public class homeController implements Initializable {
          VB.getChildren().add(h1);
          btnsupp.setOnAction(event -> DeletePost(evv.getId()));
          btnmod.setOnAction(event -> UpdatePost(evv.getId()));
+         btnjaimep.setGraphic(likeimga);
          btnjaime.setGraphic(likeimg);
-          btnjaimep.setGraphic(dislikeimg);
          if (lj.size()!=0){
        /*  btnjaime.setGraphic(likeimga);
          btnjaime.setDisable(true);
@@ -340,7 +331,7 @@ public class homeController implements Initializable {
      private void likePostU(int post) {
         ServiceJaime sp = new ServiceJaime();
         sp.ajouterjaime(new Jaime (post));
-        JOptionPane.showMessageDialog(null, "jaime ajouté !");
+      
          VB.getChildren().clear();
          VBB.getChildren().clear();
          searchUser();       
@@ -359,7 +350,7 @@ public class homeController implements Initializable {
                private void dislikePostU(int id ) {
         ServiceJaime sp = new ServiceJaime();
         sp.supprimerjaime(id);
-        JOptionPane.showMessageDialog(null, "jaime supp !");
+      
          VB.getChildren().clear();
          VBB.getChildren().clear();
          searchUser();
@@ -367,17 +358,20 @@ public class homeController implements Initializable {
           private void Follow(int followed) {
         ServiceFollow sf = new ServiceFollow();
         sf.follow(new Follow (followed));
-        JOptionPane.showMessageDialog(null, "follow ajouté !");
+      
          VBH.getChildren().clear();
+          VBB.getChildren().clear();
          HomeFollow();
+          searchUser();
         
     }
            private void Unfollow(int id) {
         ServiceFollow sf = new ServiceFollow();
         sf.unfollow(id);
-        JOptionPane.showMessageDialog(null, "follow supp !");
+       VBB.getChildren().clear();
         VBH.getChildren().clear();
         HomeFollow();
+         searchUser();
       
         
     }
@@ -440,10 +434,8 @@ public class homeController implements Initializable {
          h1.getChildren().add(h2);
          ImageView likeimga = new ImageView(getClass().getResource("/icons/likem.png").toString());
          ImageView likeimg = new ImageView(getClass().getResource("/icons/like.png").toString());
-         ImageView dislikeimga = new ImageView(getClass().getResource("/icons/dislikem.png").toString());
-         ImageView dislikeimg = new ImageView(getClass().getResource("/icons/dislike.png").toString());
          String stylebt = "-fx-background-color: #FFFFFF;";
-         String style = "-fx-background-color: #FFFFFF; -fx-padding: 20 ;";
+         String style = "-fx-background-color: #FFFFFF; -fx-padding: 5 ;";
          String stylU = "-fx-font-weight: bold; -fx-font-size: 20px;";
          h1.setStyle(style);
          user.setStyle(stylU);
@@ -452,21 +444,22 @@ public class homeController implements Initializable {
          btnjaimep.setStyle(stylebt);
         
          VBH.getChildren().add(h1);
+         btnjaimep.setGraphic(likeimga);
+          btnjaime.setGraphic(likeimg);
          if (lj.size()!=0){
-         btnjaime.setGraphic(likeimga);
-         btnjaime.setDisable(true);
-         btnjaimep.setGraphic(dislikeimg);
-         btnjaimep.setDisable(false);
+      
+         h2.getChildren().remove(btnjaime);
+       
          for (Jaime ejj : lj) {
                btnjaimep.setOnAction(event -> dislikePost(ejj.getId()));
           }
          }
+         
          else if (lj.size()==0){
-         btnjaime.setGraphic(likeimg);
-         btnjaime.setDisable(false);
-         btnjaimep.setGraphic(dislikeimga);
-         btnjaimep.setDisable(true);
+      
          btnjaime.setOnAction(event ->likePost(evv.getId()));
+         h2.getChildren().remove(btnjaimep);
+      
          }
         }
         }
@@ -485,12 +478,30 @@ public class homeController implements Initializable {
          Button btnfollow = new Button("follow");
          Button btnunfollow = new Button("unfollow");
          Button btnclaim = new Button("claim");
-         HBox h2 = new HBox();
+        
+         VBox h2 = new VBox();   
          h2.getChildren().add(userN);
-         h2.getChildren().add(btnfollow);
-         h2.getChildren().add(btnunfollow);
-         h2.getChildren().add(btnclaim);
+      //   h2.getChildren().add(btnfollow);
+       //  h2.getChildren().add(btnunfollow);
+       //  h2.getChildren().add(btnclaim);
+          HBox ht = new HBox();
+          StackPane ct= new StackPane ();
+           
+         ct.getChildren().add(ht); 
+         ht.setMargin(btnclaim, new Insets(0, 0, 0, 20));
+         ht.getChildren().add(btnfollow);  
+         ht.getChildren().add(btnunfollow);
+         ht.getChildren().add(btnclaim);
+         h2.getChildren().add(ct); 
+       
+       
+         
+         
+         
          HE.getChildren().add(h2);
+         
+         
+         
          ServicePost sp = new ServicePost();
          ServiceJaime st = new ServiceJaime();
          ServiceFollow sf = new ServiceFollow();
@@ -498,35 +509,92 @@ public class homeController implements Initializable {
          List<Jaime> lj = new ArrayList<>();
          List<Follow> lf = new ArrayList<>();
         
+         ScrollPane sl = new ScrollPane ();
+         sl.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+         sl.setHbarPolicy(ScrollBarPolicy.NEVER);
+         sl.setContent(VBB);
+         String stylep ="-fx-background-color:none;" ;          
+         sl.setStyle(stylep);
+         pnlus.getChildren().add(sl);
         le = sp.afficherpost(u.getId());
         for (Post evv : le) {
          lj = st.reloadjaime(UserSession.getUser().getId(),evv.getId());   
-          HBox h1 = new HBox();
-          VBB.setSpacing(20);
-          h1.setSpacing(30);
+         VBox h1 = new VBox();
+         HBox h3 = new HBox();
+         VBB.setSpacing(5);
+         h1.setSpacing(2);
          Text user = new Text(u.getUsername());
          Text date = new Text(evv.getDateCreation());
          Text contenu = new Text(evv.getContenu());
-         Button btnjaime = new Button("jaime");
-         Button btnjaimep = new Button("jaime pas");
+         Button btnjaime = new Button();
+         Button btnjaimep = new Button();
          Label nbjaime = new Label();
          nbjaime.setText(""+ st.nbrejaime(evv.getId()));
          h1.getChildren().add(user); 
          h1.getChildren().add(date);
          h1.getChildren().add(contenu);
-         h1.getChildren().add(btnjaime);
-         h1.getChildren().add(nbjaime);
-         h1.getChildren().add(btnjaimep); 
+         h3.getChildren().add(nbjaime);
+         h3.getChildren().add(btnjaime);
+         h3.getChildren().add(btnjaimep);
+         h1.getChildren().add(h3);
          VBB.getChildren().add(h1); 
-         btnjaime.setOnAction(event -> likePostU(evv.getId())); 
-         for (Jaime ejj : lj) { btnjaimep.setOnAction(event -> dislikePostU(ejj.getId()));}   
+         ImageView likeimga = new ImageView(getClass().getResource("/icons/likem.png").toString());
+         ImageView likeimg = new ImageView(getClass().getResource("/icons/like.png").toString());
+          btnjaimep.setGraphic(likeimga);
+          btnjaime.setGraphic(likeimg);
+          String stylebt = "-fx-background-color: #FFFFFF;";
+         String style = "-fx-background-color: #FFFFFF; -fx-padding: 5 ;";
+         String stylU = "-fx-font-weight: bold; -fx-font-size: 20px;";
+         String stylebtF = "-fx-background-color: #00BFFF;-fx-text-fill: #FFFFFF;-fx-font-weight: bold;-fx-margin: 5 ";
+         String stylebtUF = "-fx-background-color: #FF0000;-fx-text-fill: #FFFFFF;-fx-font-weight: bold;-fx-margin: 5 ";
+         String stylebtC = "-fx-background-color: #32CD32;-fx-text-fill: #FFFFFF;-fx-font-weight: bold;";
+         h1.setStyle(style);
+         user.setStyle(stylU);
+         nbjaime.setStyle(stylU);
+         btnjaime.setStyle(stylebt);
+         btnjaimep.setStyle(stylebt);
+         btnfollow.setStyle(stylebtF);
+         btnunfollow.setStyle(stylebtUF);
+         btnclaim.setStyle(stylebtC); 
+          if (lj.size()!=0){
+      
+         h3.getChildren().remove(btnjaime);
+       
+         for (Jaime ejj : lj) {
+               btnjaimep.setOnAction(event -> dislikePostU(ejj.getId()));
+          }
+         }
+         
+         else if (lj.size()==0){
+         btnjaime.setOnAction(event ->likePostU(evv.getId()));
+         h3.getChildren().remove(btnjaimep);
+      
+         }
+      
     } 
          final int f =u.getId();
          lf = sf.reloadfollow(UserSession.getUser().getId(),u.getId());
-          btnfollow.setOnAction(event -> Follow(f));
-         for (Follow eff : lf) {    
+           if (lf.size()!=0){
+      
+         ht.getChildren().remove(btnfollow);
+       
+        for (Follow eff : lf) {    
           btnunfollow.setOnAction(event ->  Unfollow(eff.getId()));
           }
+         }
+         
+         else if (lj.size()==0){
+          btnfollow.setOnAction(event -> Follow(f));
+         ht.getChildren().remove(btnunfollow);
+      
+         }
+         
+         
+       /*   btnfollow.setOnAction(event -> Follow(f));
+          
+         for (Follow eff : lf) {    
+          btnunfollow.setOnAction(event ->  Unfollow(eff.getId()));
+          }*/
           btnclaim.setOnAction(event -> singleDialogInformation(f));      
          
 }
@@ -576,8 +644,8 @@ public class homeController implements Initializable {
             HBox h2 = new HBox();
             HBox h3 = new HBox();
             HBox h4 = new HBox();
-          VBR.setSpacing(20);
-          h1.setSpacing(30);
+          VBR.setSpacing(5);
+          h1.setSpacing(2);
           
          ScrollPane sl = new ScrollPane ();
          sl.setVbarPolicy(ScrollBarPolicy.ALWAYS);
@@ -613,13 +681,13 @@ public class homeController implements Initializable {
          String stylebt = "-fx-background-color: #FFFFFF;";
          String style = "-fx-background-color: #FFFFFF; -fx-padding: 5 ;";
          String stylU = "-fx-font-weight: bold; -fx-font-size: 20px;";
-         String stylUt = "-fx-font-weight: bold; -fx-font-size: 10x;";
+         String stylUt = "-fx-font-weight: bold; -fx-font-size: 16px;";
          h1.setStyle(style);
          reclamer.setStyle(stylU);
          bodyc.setStyle(stylUt);
          objc.setStyle(stylUt);
-        btnsupp.setStyle(stylebt);
- VBR.getChildren().add(h1);
+         btnsupp.setStyle(stylebt);
+         VBR.getChildren().add(h1);
          btnsupp.setOnAction(event -> DeleteR(evv.getId()));
        
     
