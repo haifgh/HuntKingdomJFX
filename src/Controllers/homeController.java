@@ -7,6 +7,7 @@ package controllers;
 import Util.UserSession;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
+import com.sun.prism.paint.Color;
 import entities.Follow;
 import javafx.fxml.FXMLLoader;
 import entities.Post;
@@ -41,6 +42,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -48,6 +50,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Pair;
@@ -121,7 +125,7 @@ public class homeController implements Initializable {
     private Label following;
     @FXML
     private VBox lisf;
-    private VBox cont;
+    
     @FXML
     private Pane panesl;
     @FXML
@@ -130,6 +134,12 @@ public class homeController implements Initializable {
     private Pane pnlcl;
     @FXML
     private Pane pnlus;
+    @FXML
+    private ImageView userimg;
+    @FXML
+    private Circle imgcer;
+    @FXML
+    private Circle imgb;
   
     /**
      * Initializes the controller class.
@@ -142,6 +152,11 @@ public class homeController implements Initializable {
          u=su.findById(UserSession.getUser().getId());
          username.setText(u.getUsername());
          usernamee.setText(u.getUsername());
+        
+     //    userimg.setImage();
+                 Image userp = new Image("http://localhost/pidev/web/images//" + u.getPhoto());
+                 imgcer.setFill(new ImagePattern(userp));
+                 imgb.setFill(new ImagePattern(userp));
          ReadPost();  
          List<User> ls= new ArrayList<>();
          ls = su.findUsers() ;   
@@ -160,9 +175,17 @@ public class homeController implements Initializable {
             
              HBox h1 = new HBox();
              Text fol = new Text(user.getUsername());
+             Circle circle = new Circle();
+         circle.setCenterX(40.0f); 
+         circle.setCenterY(10.0f); 
+         circle.setRadius(15.0f); 
+         Image userf = new Image("http://localhost/pidev/web/images//" + user.getPhoto());
+         circle.setFill(new ImagePattern(userf));
+             h1.getChildren().add(circle);
              h1.getChildren().add(fol);
-             lisf.getChildren().add(fol);
              
+             lisf.getChildren().add(h1);
+              
              
          }
         
@@ -244,6 +267,13 @@ public class homeController implements Initializable {
          String stylep ="-fx-background-color:none;" ;          
          sl.setStyle(stylep);
          pnlst.getChildren().add(sl);
+         Circle circle = new Circle();
+         circle.setCenterX(50.0f); 
+         circle.setCenterY(15.0f); 
+         circle.setRadius(20.0f); 
+         Image userp = new Image("http://localhost/pidev/web/images//" + u.getPhoto());
+         circle.setFill(new ImagePattern(userp));
+         
          Text user = new Text(u.getUsername());
          Text date = new Text(evv.getDateCreation());
          Text contenu = new Text(evv.getContenu());
@@ -256,11 +286,12 @@ public class homeController implements Initializable {
          StackPane ct= new StackPane ();
          HBox ht = new HBox();
          ct.getChildren().add(ht); 
-         ct.setMargin(ht, new Insets(0, 0, 0, 500));
+         ct.setMargin(ht, new Insets(0, 0, 0, 450));
          ht.getChildren().add(btnsupp);  
          ht.getChildren().add(btnmod); 
        //  ht.getChildren().add(h1); 
-      //  h1.getChildren().add(ct); 
+      //  h1.getChildren().add(ct);
+         h3.getChildren().add(circle); 
          h3.getChildren().add(user); 
          h3.getChildren().add(ct); 
          h1.getChildren().add(h3);
@@ -417,6 +448,13 @@ public class homeController implements Initializable {
          panesl.getChildren().add(sl);
          VBH.setSpacing(5);
          h1.setSpacing(2);
+         Circle circle = new Circle();
+         circle.setCenterX(50.0f); 
+         circle.setCenterY(15.0f); 
+         circle.setRadius(20.0f); 
+         Image userp = new Image("http://localhost/pidev/web/images//" + u.getPhoto());
+         circle.setFill(new ImagePattern(userp));
+         
           Text user = new Text(u.getUsername());
          Text date = new Text(evv.getDateCreation());
          Text contenu = new Text(evv.getContenu());
@@ -424,7 +462,7 @@ public class homeController implements Initializable {
          Button btnjaimep = new Button();
          Label nbjaime = new Label();
          nbjaime.setText(""+ st.nbrejaime(evv.getId()));
-       
+        h1.getChildren().add(circle);
          h1.getChildren().add(user); 
          h1.getChildren().add(date);
          h1.getChildren().add(contenu);
@@ -474,16 +512,21 @@ public class homeController implements Initializable {
        
         UserD.setStyle("-fx-background-color : #F8F8FA");
         UserD.toFront();
+        Circle circle = new Circle();
+         circle.setCenterX(50.0f); 
+         circle.setCenterY(15.0f); 
+         circle.setRadius(20.0f); 
+         Image userp = new Image("http://localhost/pidev/web/images//" + u.getPhoto());
+         circle.setFill(new ImagePattern(userp));
          Text userN = new Text(u.getUsername());
          Button btnfollow = new Button("follow");
          Button btnunfollow = new Button("unfollow");
          Button btnclaim = new Button("claim");
         
          VBox h2 = new VBox();   
+          h2.getChildren().add(circle);
          h2.getChildren().add(userN);
-      //   h2.getChildren().add(btnfollow);
-       //  h2.getChildren().add(btnunfollow);
-       //  h2.getChildren().add(btnclaim);
+     
           HBox ht = new HBox();
           StackPane ct= new StackPane ();
            
@@ -493,14 +536,9 @@ public class homeController implements Initializable {
          ht.getChildren().add(btnunfollow);
          ht.getChildren().add(btnclaim);
          h2.getChildren().add(ct); 
-       
-       
-         
-         
+
          
          HE.getChildren().add(h2);
-         
-         
          
          ServicePost sp = new ServicePost();
          ServiceJaime st = new ServiceJaime();
@@ -523,6 +561,12 @@ public class homeController implements Initializable {
          HBox h3 = new HBox();
          VBB.setSpacing(5);
          h1.setSpacing(2);
+         Circle circlepost = new Circle();
+         circlepost.setCenterX(50.0f); 
+         circlepost.setCenterY(15.0f); 
+         circlepost.setRadius(20.0f); 
+         Image userpost = new Image("http://localhost/pidev/web/images//" + u.getPhoto());
+         circlepost.setFill(new ImagePattern(userpost));
          Text user = new Text(u.getUsername());
          Text date = new Text(evv.getDateCreation());
          Text contenu = new Text(evv.getContenu());
@@ -530,6 +574,7 @@ public class homeController implements Initializable {
          Button btnjaimep = new Button();
          Label nbjaime = new Label();
          nbjaime.setText(""+ st.nbrejaime(evv.getId()));
+         h1.getChildren().add(circlepost); 
          h1.getChildren().add(user); 
          h1.getChildren().add(date);
          h1.getChildren().add(contenu);
@@ -588,13 +633,7 @@ public class homeController implements Initializable {
          ht.getChildren().remove(btnunfollow);
       
          }
-         
-         
-       /*   btnfollow.setOnAction(event -> Follow(f));
-          
-         for (Follow eff : lf) {    
-          btnunfollow.setOnAction(event ->  Unfollow(eff.getId()));
-          }*/
+      
           btnclaim.setOnAction(event -> singleDialogInformation(f));      
          
 }
@@ -644,9 +683,8 @@ public class homeController implements Initializable {
             HBox h2 = new HBox();
             HBox h3 = new HBox();
             HBox h4 = new HBox();
-          VBR.setSpacing(5);
-          h1.setSpacing(2);
-          
+            VBR.setSpacing(5);
+            h1.setSpacing(2); 
          ScrollPane sl = new ScrollPane ();
          sl.setVbarPolicy(ScrollBarPolicy.ALWAYS);
          sl.setHbarPolicy(ScrollBarPolicy.NEVER);
@@ -660,17 +698,23 @@ public class homeController implements Initializable {
          Text reclamer = new Text(""+u.getUsername());
          Text objc = new Text("object of claim :");   
          Text bodyc = new Text("body of claim :"); 
+         Circle circlepost = new Circle();
+         circlepost.setCenterX(50.0f); 
+         circlepost.setCenterY(15.0f); 
+         circlepost.setRadius(20.0f); 
+         Image userpost = new Image("http://localhost/pidev/web/images//" + u.getPhoto());
+         circlepost.setFill(new ImagePattern(userpost));
          Button btnsupp = new Button();
          ImageView deleteimg = new ImageView(getClass().getResource("/icons/delete.png").toString());
          btnsupp.setGraphic(deleteimg);
-          StackPane ct= new StackPane ();
+         StackPane ct= new StackPane ();
          HBox ht = new HBox();
          ct.getChildren().add(ht); 
          ct.setMargin(ht, new Insets(0, 0, 0, 800));
          ht.getChildren().add(btnsupp);  
+         h4.getChildren().add(circlepost); 
          h4.getChildren().add(reclamer); 
          h4.getChildren().add(ct); 
-       
          h2.getChildren().add(objc);
          h2.getChildren().add(objet);
          h3.getChildren().add(bodyc);

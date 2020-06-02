@@ -45,7 +45,10 @@ public class UserServices implements IUserServices {
                         (Timestamp) rs.getObject(9),
                         rs.getString(10),
                         (Timestamp) rs.getObject(11),
-                        rs.getString(12));
+                        rs.getString(12),
+                        rs.getString(18)
+                );
+            
         }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -126,7 +129,8 @@ public class UserServices implements IUserServices {
                         (Timestamp) rs.getObject(9),
                         rs.getString(10),
                         (Timestamp) rs.getObject(11),
-                        rs.getString(12));
+                        rs.getString(12),
+                         rs.getString(18));
             
           
         }
@@ -155,7 +159,8 @@ public class UserServices implements IUserServices {
                         (Timestamp) rs.getObject(9),
                         rs.getString(10),
                         (Timestamp) rs.getObject(11),
-                        rs.getString(12));
+                        rs.getString(12),
+                        rs.getString(18));
                Al.add(u);
           
         }

@@ -111,7 +111,11 @@
             <Pane fx:id="UserD" prefHeight="500.0" prefWidth="930.0" style="-fx-background-color: F8F8FA;">
                <children>
                   <HBox fx:id="HE" layoutX="64.0" layoutY="14.0" prefHeight="73.0" prefWidth="745.0" />
-                   <VBox fx:id="VBB" layoutY="106.0" prefHeight="384.0" prefWidth="805.0" />
+                  <Pane fx:id="pnlus" layoutY="107.0" prefHeight="386.0" prefWidth="941.0">
+                     <children>
+                         <VBox fx:id="VBB" prefHeight="384.0" prefWidth="929.0" />
+                     </children>
+                  </Pane>
                </children>
             </Pane>
             <Pane fx:id="pnlhome" prefHeight="493.0" prefWidth="921.0" style="-fx-background-color: F8F8FA;">
@@ -139,7 +143,7 @@
                   <JFXTextField fx:id="testpost" focusColor="#498038" layoutX="125.0" layoutY="48.0" maxWidth="458.0" minWidth="401.0" prefHeight="37.0" prefWidth="401.0" promptText="what's in your mind ?" />
                   <VBox fx:id="userinfo" layoutX="712.0" layoutY="14.0" prefHeight="258.0" prefWidth="229.0" style="-fx-background-color: white; -fx-border-radius: 5em;">
                      <children>
-                        <Circle fill="#dbdcdd" radius="36.0" stroke="WHITE" strokeType="INSIDE">
+                        <Circle fx:id="imgb" fill="#dbdcdd" radius="36.0" stroke="WHITE" strokeType="INSIDE">
                            <VBox.margin>
                               <Insets left="85.0" top="30.0" />
                            </VBox.margin>
@@ -154,12 +158,17 @@
                         </Label>
                         <HBox prefHeight="27.0" prefWidth="229.0">
                            <children>
-                              <Label fx:id="follower" prefHeight="21.0" prefWidth="79.0" text="Label">
+                              <Label fx:id="follower" prefHeight="21.0" prefWidth="77.0" text="Label">
                                  <padding>
                                     <Insets left="10.0" />
                                  </padding>
                               </Label>
-                              <Label fx:id="following" alignment="CENTER" prefHeight="21.0" prefWidth="58.0" text="Label">
+                              <Label fx:id="following" alignment="CENTER" prefHeight="21.0" prefWidth="65.0" text="Label">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="following1" alignment="CENTER" prefHeight="21.0" prefWidth="72.0" text="Label">
                                  <padding>
                                     <Insets left="10.0" />
                                  </padding>
@@ -191,8 +200,8 @@
             </Pane>
          </children>
       </StackPane>
-      <Circle fill="#dadcdd" layoutX="788.0" layoutY="34.0" radius="17.0" stroke="WHITE" strokeType="INSIDE" />
-      <Label fx:id="username" alignment="CENTER" layoutX="831.0" layoutY="19.0" prefHeight="31.0" prefWidth="60.0" text="Label" textAlignment="CENTER">
+      <Circle fx:id="imgcer" fill="#dadcdd" layoutX="791.0" layoutY="31.0" radius="20.0" stroke="WHITE" strokeType="INSIDE" />
+      <Label fx:id="username" alignment="CENTER" layoutX="811.0" layoutY="17.0" prefHeight="31.0" prefWidth="60.0" text="Label" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
@@ -205,14 +214,12 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="logout" layoutX="943.0" layoutY="22.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="12.0" style="-fx-background-color: F8F8FA;">
-         <graphic>
-            <ImageView fitHeight="25.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../icons/icons8_exit_26px.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
+      <Button fx:id="logout" layoutX="943.0" layoutY="22.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="12.0" style="-fx-background-color: F8F8FA;" />
+      <ImageView fx:id="userimg" fitHeight="45.0" fitWidth="50.0" layoutX="334.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="998.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/icons8_exit_26px.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

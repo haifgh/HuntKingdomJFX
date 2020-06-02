@@ -31,7 +31,9 @@ public class User implements Serializable {
     private String salt;
 
     private String password;
- 
+    
+    
+    private String photo;
 
     private Timestamp lastLogin;
   
@@ -80,6 +82,22 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public User(Integer id, String username, String usernameCanonical, String email, String emailCanonical, boolean enabled, String salt, String password, Timestamp lastLogin, String confirmationToken, Timestamp passwordRequestedAt, String roles,String photo) {
+        this.id = id;
+        this.username = username;
+        this.usernameCanonical = usernameCanonical;
+        this.email = email;
+        this.emailCanonical = emailCanonical;
+        this.enabled = enabled;
+        this.salt = salt;
+        this.password = password;
+        this.lastLogin = lastLogin;
+        this.confirmationToken = confirmationToken;
+        this.passwordRequestedAt = passwordRequestedAt;
+        this.roles = roles;
+        this.photo = photo;
+    }
+
    
 
     public Integer getId() {
@@ -104,6 +122,14 @@ public class User implements Serializable {
 
     public void setUsernameCanonical(String usernameCanonical) {
         this.usernameCanonical = usernameCanonical;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public String getEmail() {
