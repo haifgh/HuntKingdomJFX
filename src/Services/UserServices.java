@@ -197,4 +197,20 @@ public class UserServices implements IUserServices {
          }
             
   }
+  
+   public void updateImage(String image , int id) throws MessagingException{
+         try {
+           PreparedStatement   pt = conn.prepareStatement("update fos_user set photo=? where id=?");
+             
+           pt.setString(1,image);
+           pt.setInt(2, id);
+           pt.executeUpdate();
+          
+         } catch (SQLException ex) {
+            
+         }
+            
+  }
+  
+  
 }

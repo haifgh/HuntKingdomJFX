@@ -16,8 +16,14 @@ import entities.Reclamation;
 import entities.User;
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +51,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -53,8 +60,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Pair;
+import javax.mail.MessagingException;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -111,14 +121,11 @@ public class homeController implements Initializable {
     private VBox VBH;
     @FXML
     private VBox VBR;
-    @FXML
     private Label usernamee;
-    @FXML
-    private Label username;
     @FXML
     private Button logout;
     @FXML
-    private VBox userinfo;
+    private Pane userinfo;
     @FXML
     private Label follower;
     @FXML
@@ -137,26 +144,37 @@ public class homeController implements Initializable {
     @FXML
     private ImageView userimg;
     @FXML
-    private Circle imgcer;
+    private Pane VBS;
     @FXML
-    private Circle imgb;
+    private Label following1;
+    FileChooser Fc = new FileChooser();
+    
+    File selectedFile ;
+    @FXML
+    private ImageView changeimg;
+    @FXML
+    private AnchorPane anachropane;
+    @FXML
+    private Button save;
+    @FXML
+    private Pane VBU;
+    @FXML
+    private VBox userimage;
+    @FXML
+    private Pane usernom;
+    @FXML
+    private Pane barimg;
+    @FXML
+    private Pane barname;
   
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO  
-         UserServices su = new UserServices();
-         User u = new User();
-         u=su.findById(UserSession.getUser().getId());
-         username.setText(u.getUsername());
-         usernamee.setText(u.getUsername());
-        
-     //    userimg.setImage();
-                 Image userp = new Image("http://localhost/pidev/web/images//" + u.getPhoto());
-                 imgcer.setFill(new ImagePattern(userp));
-                 imgb.setFill(new ImagePattern(userp));
+        // TODO
+        setbar();
+           UserServices su = new UserServices();
          ReadPost();  
          List<User> ls= new ArrayList<>();
          ls = su.findUsers() ;   
@@ -183,7 +201,6 @@ public class homeController implements Initializable {
          circle.setFill(new ImagePattern(userf));
              h1.getChildren().add(circle);
              h1.getChildren().add(fol);
-             
              lisf.getChildren().add(h1);
               
              
@@ -213,7 +230,33 @@ public class homeController implements Initializable {
         }
     }
     
-   
+    private void setbar() {
+      
+         UserServices su = new UserServices();
+         User u = new User();
+         u=su.findById(UserSession.getUser().getId());
+         Label name = new Label(u.getUsername());
+         Label namep = new Label(u.getUsername());
+          Circle circle = new Circle();
+         circle.setCenterX(50.0f); 
+         circle.setCenterY(15.0f); 
+         circle.setRadius(20.0f); 
+         Image user = new Image("http://localhost/pidev/web/images//" + u.getPhoto());
+         circle.setFill(new ImagePattern(user));
+        Circle circlet = new Circle();
+         circlet.setCenterX(150.0f); 
+         circlet.setCenterY(60.0f); 
+         circlet.setRadius(60.0f); 
+           circlet.setFill(new ImagePattern(user));
+            String stylU = "-fx-font-weight: bold; -fx-font-size: 20px;";
+         name.setStyle(stylU);
+         namep.setStyle(stylU);
+         userimage.getChildren().add(circlet);
+         usernom.getChildren().add(namep);
+         barimg.getChildren().add(circle);
+         barname.getChildren().add(name);
+    
+        }
 
     @FXML
     private void CreatePost(ActionEvent event) {
@@ -406,8 +449,7 @@ public class homeController implements Initializable {
       
         
     }
-           
-           
+        
            
     private void Addclaim () throws IOException {
   
@@ -702,7 +744,7 @@ public class homeController implements Initializable {
          circlepost.setCenterX(50.0f); 
          circlepost.setCenterY(15.0f); 
          circlepost.setRadius(20.0f); 
-         Image userpost = new Image("http://localhost/pidev/web/images//" + u.getPhoto());
+         Image userpost = new Image("http://localhost/pidev/web/images/" + u.getPhoto());
          circlepost.setFill(new ImagePattern(userpost));
          Button btnsupp = new Button();
          ImageView deleteimg = new ImageView(getClass().getResource("/icons/delete.png").toString());
@@ -745,6 +787,7 @@ public class homeController implements Initializable {
          VBR.getChildren().clear();
          ReadClaims();
         }
+        
     
      private void UpdateR(int id ) {
         ServiceReclamation sr = new ServiceReclamation();
@@ -773,13 +816,64 @@ public class homeController implements Initializable {
             } catch (NumberFormatException nfe) {
                 nfe.printStackTrace();
             }
-
         }
         VBR.getChildren().clear();
        ReadClaims();
-    }
+               }
+     private void UpdateU(String img ,int id ) {
+         UserServices su = new UserServices();
+        try {
+            su.updateImage(img,id);
+        } catch (MessagingException ex) {
+           
+        }
+        userimage.getChildren().clear();
+         usernom.getChildren().clear();
+         VBU.getChildren().clear();
+         VB.getChildren().clear(); 
+         ReadPost();
+         setbar();
+        }
+     
+     
+     
+    @FXML
+     private void settings() throws IOException {
         
-        }   
+        Stage stage = (Stage)anachropane.getScene().getWindow();
+        File file = Fc.showOpenDialog(stage);
+        if (file!=null){
+            Path source = Paths.get(file.getAbsoluteFile().toURI());
+             Path destination = Paths.get("C://xampp/htdocs/pidev/web/images/"+file.getAbsoluteFile().getName());
+         //   System.out.println(""+file.getAbsoluteFile().getName());
+          Files.copy(source, destination,StandardCopyOption.REPLACE_EXISTING);
+            Image image = new Image(file.getAbsoluteFile().toURI().toString());
+            changeimg.setImage(image); 
+            UserServices su = new UserServices();
+            User u = new User();
+            u=su.findById(UserSession.getUser().getId());
+            final int id = u.getId();
+            final String imagen = file.getAbsoluteFile().getName();
+            save.setOnAction(event -> {         
+                    UpdateU(imagen,id);
+  
+              });
+           
+        }    
+     }
+            
+        
+       
+         
+     }
+     
+     
+     
+     
+     
+     
+        
+         
      
 
      

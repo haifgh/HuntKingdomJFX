@@ -12,11 +12,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" minHeight="550.0" minWidth="800.0" prefHeight="553.0" prefWidth="1053.0" style="-fx-background-color: F8F8FA;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.homeController">
+<AnchorPane id="AnchorPane" fx:id="anachropane" minHeight="550.0" minWidth="800.0" prefHeight="553.0" prefWidth="1053.0" style="-fx-background-color: F8F8FA;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.homeController">
    <opaqueInsets>
       <Insets bottom="60.0" />
    </opaqueInsets>
@@ -87,13 +86,6 @@
       </Pane>
       <StackPane layoutX="87.0" layoutY="58.0" prefHeight="493.0" prefWidth="947.0" style="-fx-background-color: white;">
          <children>
-          <Pane fx:id="pnlsettings" prefHeight="500.0" prefWidth="930.0" style="-fx-background-color: F8F8FA;">
-               <children>
-                  <Text fill="#fff9f9" layoutX="68.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit profile:" wrappingWidth="163.00000619888306" />
-                  <Text layoutX="101.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="change photo de profile : " />
-                  <Text layoutX="75.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="change mot de passe: " />
-                  <Button layoutX="383.0" layoutY="162.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="135.0" text="change image" />
-               </children></Pane>
             <Pane fx:id="pnlclaims" prefHeight="500.0" prefWidth="930.0" style="-fx-background-color: F8F8FA;">
                <children>
                   <Text fill="#807c7c" layoutX="28.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your claims" wrappingWidth="228.970703125">
@@ -132,6 +124,15 @@
                   </Pane>
                </children>
             </Pane>
+          <Pane fx:id="pnlsettings" prefHeight="500.0" prefWidth="930.0" style="-fx-background-color: F8F8FA;">
+               <children>
+                  <Pane fx:id="VBS" layoutX="21.0" layoutY="120.0" prefHeight="364.0" prefWidth="920.0">
+                     <children>
+                        <ImageView fx:id="changeimg" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                        <Button layoutX="14.0" layoutY="151.0" mnemonicParsing="false" onAction="#settings" text="Button" />
+                        <Button fx:id="save" layoutX="14.0" layoutY="237.0" mnemonicParsing="false" text="save" />
+                     </children></Pane>
+               </children></Pane>
             <Pane fx:id="pnlprofile" prefHeight="500.0" prefWidth="930.0" style="-fx-background-color: F8F8FA;">
                <children>
                   <Pane fx:id="pnlst" layoutY="129.0" prefHeight="364.0" prefWidth="687.0">
@@ -141,22 +142,11 @@
                   </Pane>
                   <Button fx:id="btnpost" layoutX="550.0" layoutY="51.0" mnemonicParsing="false" onAction="#CreatePost" prefHeight="13.0" prefWidth="71.0" style="-fx-background-color: green; -fx-background-radius: 5em;" text="post" />
                   <JFXTextField fx:id="testpost" focusColor="#498038" layoutX="125.0" layoutY="48.0" maxWidth="458.0" minWidth="401.0" prefHeight="37.0" prefWidth="401.0" promptText="what's in your mind ?" />
-                  <VBox fx:id="userinfo" layoutX="712.0" layoutY="14.0" prefHeight="258.0" prefWidth="229.0" style="-fx-background-color: white; -fx-border-radius: 5em;">
+                  <Pane fx:id="userinfo" layoutX="715.0" layoutY="14.0" prefHeight="261.0" prefWidth="229.0" style="-fx-background-color: white;">
                      <children>
-                        <Circle fx:id="imgb" fill="#dbdcdd" radius="36.0" stroke="WHITE" strokeType="INSIDE">
-                           <VBox.margin>
-                              <Insets left="85.0" top="30.0" />
-                           </VBox.margin>
-                        </Circle>
-                        <Label fx:id="usernamee" alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="87.0" text="Label" textAlignment="CENTER">
-                           <font>
-                              <Font name="Arial Rounded MT Bold" size="19.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets left="82.0" top="20.0" />
-                           </VBox.margin>
-                        </Label>
-                        <HBox prefHeight="27.0" prefWidth="229.0">
+                        <VBox fx:id="userimage" layoutX="59.0" layoutY="15.0" prefHeight="124.0" prefWidth="136.0" />
+                        <Pane fx:id="usernom" layoutX="101.0" layoutY="139.0" prefHeight="45.0" prefWidth="77.0" />
+                        <HBox layoutY="190.0" prefHeight="71.0" prefWidth="229.0">
                            <children>
                               <Label fx:id="follower" prefHeight="21.0" prefWidth="77.0" text="Label">
                                  <padding>
@@ -174,12 +164,9 @@
                                  </padding>
                               </Label>
                            </children>
-                           <VBox.margin>
-                              <Insets top="60.0" />
-                           </VBox.margin>
                         </HBox>
                      </children>
-                  </VBox>
+                  </Pane>
                   <VBox layoutX="712.0" layoutY="284.0" prefHeight="197.0" prefWidth="229.0" style="-fx-background-color: white;">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="   FOLLOWING" wrappingWidth="184.66650390625">
@@ -200,12 +187,11 @@
             </Pane>
          </children>
       </StackPane>
-      <Circle fx:id="imgcer" fill="#dadcdd" layoutX="791.0" layoutY="31.0" radius="20.0" stroke="WHITE" strokeType="INSIDE" />
-      <Label fx:id="username" alignment="CENTER" layoutX="811.0" layoutY="17.0" prefHeight="31.0" prefWidth="60.0" text="Label" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-      </Label>
+      <Pane fx:id="VBU" layoutX="770.0" layoutY="9.0" prefHeight="51.0" prefWidth="200.0">
+         <children>
+            <Pane fx:id="barimg" layoutY="6.0" prefHeight="45.0" prefWidth="77.0" />
+            <Pane fx:id="barname" layoutX="77.0" layoutY="10.0" prefHeight="31.0" prefWidth="71.0" />
+         </children></Pane>
       <Button fx:id="btnsearch" layoutX="690.0" layoutY="16.0" mnemonicParsing="false" onAction="#searchUser" prefHeight="31.0" prefWidth="42.0" style="-fx-background-color: F8F8FA;">
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="22.0" onDragDetected="#searchUser" pickOnBounds="true" preserveRatio="true">
