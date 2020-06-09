@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  * @author JAIDI
  */
 public class Connexion {
-    private static String url= "jdbc:mysql://localhost:3306/pidev";
+    private static String url= "jdbc:mysql://localhost:3308/pi?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private static String usr="root";
     private static String pwd="";
 

@@ -44,7 +44,6 @@ public class SlidePaneAdminController implements Initializable {
 
         content.getChildren().setAll(p);
     }
-    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -56,22 +55,6 @@ public class SlidePaneAdminController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(SlidePaneAdminController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    @FXML
-    private void goToGuides(ActionEvent event)throws IOException {
-        Parent p       = FXMLLoader.load(getClass().getResource("/Views/Showguide.fxml"));
-        HBox   content = (HBox) tabPane.getParent().getParent().getParent().getParent().getScene().lookup("#content");
-
-        content.getChildren().setAll(p);
-    }
-
-    @FXML
-    private void goToComments(ActionEvent event) throws IOException {
-        Parent p       = FXMLLoader.load(getClass().getResource("/Views/CommentAdmin.fxml"));
-        HBox   content = (HBox) tabPane.getParent().getParent().getParent().getParent().getScene().lookup("#content");
-
-        content.getChildren().setAll(p);
     }
 }
 
