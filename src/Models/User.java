@@ -1,5 +1,5 @@
 
-package entities;
+package Models;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -11,8 +11,6 @@ import java.sql.Timestamp;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    
 
 
     private Integer id;
@@ -31,9 +29,7 @@ public class User implements Serializable {
     private String salt;
 
     private String password;
-    
-    
-    private String photo;
+ 
 
     private Timestamp lastLogin;
   
@@ -72,31 +68,9 @@ public class User implements Serializable {
        
     }
 
-    public User(Integer id, String username, String usernameCanonical, String email, String emailCanonical, boolean enabled, String password) {
-        this.id = id;
-        this.username = username;
-        this.usernameCanonical = usernameCanonical;
-        this.email = email;
-        this.emailCanonical = emailCanonical;
-        this.enabled = enabled;
-        this.password = password;
-    }
-
-    public User(Integer id, String username, String usernameCanonical, String email, String emailCanonical, boolean enabled, String salt, String password, Timestamp lastLogin, String confirmationToken, Timestamp passwordRequestedAt, String roles,String photo) {
-        this.id = id;
-        this.username = username;
-        this.usernameCanonical = usernameCanonical;
-        this.email = email;
-        this.emailCanonical = emailCanonical;
-        this.enabled = enabled;
-        this.salt = salt;
-        this.password = password;
-        this.lastLogin = lastLogin;
-        this.confirmationToken = confirmationToken;
-        this.passwordRequestedAt = passwordRequestedAt;
-        this.roles = roles;
-        this.photo = photo;
-    }
+   /* public User(int i, String java, String java0, String javajava, String java2java, boolean b, String java1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }*/
 
    
 
@@ -122,14 +96,6 @@ public class User implements Serializable {
 
     public void setUsernameCanonical(String usernameCanonical) {
         this.usernameCanonical = usernameCanonical;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
     }
 
     public String getEmail() {
@@ -199,7 +165,14 @@ public class User implements Serializable {
     public String getRoles() {
         return roles;
     }
-
+    public boolean isAdmin() {
+        
+        if (this.getRoles().equals("a:1:{i:0;s:10:\"ROLE_ADMIN\";}")) {
+            return true;
+        }
+        return false;
+    }
+    
     public void setRoles(String roles) {
         this.roles = roles;
     }
@@ -220,10 +193,10 @@ public class User implements Serializable {
         User other = (User) object;
         return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
-
-    @Override
+  @Override
     public String toString() {
-        return username;
+        return "User{" + "id=" + id + ", username=" + username + ", usernameCanonical=" + usernameCanonical + ", email=" + email + ", emailCanonical=" + emailCanonical + ", enabled=" + enabled + ", salt=" + salt + ", password=" + password + ", lastLogin=" + lastLogin + ", confirmationToken=" + confirmationToken + ", passwordRequestedAt=" + passwordRequestedAt + ", roles=" + roles + '}';
     }
+   
 
 }

@@ -1,5 +1,5 @@
 
-package entities;
+package Models;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -15,12 +15,17 @@ public class Commande implements Serializable {
 
     private Integer id;
   
-  
+    private Integer userId;
+    
+    private Double prixTotal;
+    
     private Timestamp date;
  
     private Timestamp dateLivraison;
     
     private String status;
+    
+    private String chargeId;
 
     private String addresse;
 
@@ -28,6 +33,42 @@ public class Commande implements Serializable {
 
  
     public Commande() {
+    }
+
+    public Commande(Integer id, Integer userId, Double prixTotal, Timestamp date, Timestamp dateLivraison, String status, String chargeId, String addresse, String tel) {
+        this.id = id;
+        this.userId = userId;
+        this.prixTotal = prixTotal;
+        this.date = date;
+        this.dateLivraison = dateLivraison;
+        this.status = status;
+        this.chargeId = chargeId;
+        this.addresse = addresse;
+        this.tel = tel;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Double getPrixTotal() {
+        return prixTotal;
+    }
+
+    public void setPrixTotal(Double prixTotal) {
+        this.prixTotal = prixTotal;
+    }
+
+    public String getChargeId() {
+        return chargeId;
+    }
+
+    public void setChargeId(String chargeId) {
+        this.chargeId = chargeId;
     }
 
     public Commande(Integer id, Timestamp date, Timestamp dateLivraison, String status, String addresse, String tel) {
@@ -104,10 +145,11 @@ public class Commande implements Serializable {
         Commande other = (Commande) object;
         return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
-
+    
     @Override
     public String toString() {
-        return "pidev.entities.User[ id=" + id + " ]";
+        return "Commande{" + "id=" + id + ", userId=" + userId + ", prixTotal=" + prixTotal + ", date=" + date + ", dateLivraison=" + dateLivraison + ", status=" + status + ", chargeId=" + chargeId + ", addresse=" + addresse + ", tel=" + tel + '}';
     }
+
 
 }

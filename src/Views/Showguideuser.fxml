@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="a" prefHeight="489.0" prefWidth="657.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@java_haifa.css" fx:controller="Controllers.ShowguideuserController">
+   <children>
+   
+      <ScrollPane fx:id="s1" layoutY="84.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="471.0" prefWidth="908.0">
+         <content>
+            <VBox fx:id="vbox1" layoutX="150.0" layoutY="200.0" prefHeight="555.0" prefWidth="908.0" style="-fx-background-color: white;">
+               <children>  
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <FontAwesomeIconView glyphName="SEARCH" glyphStyle="-fx-fill:#BDBDBD" size="16">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </FontAwesomeIconView>
+                        <JFXTextField fx:id="rech" focusColor="#d7d9e0" onAction="#Search" prefHeight="25.0" prefWidth="193.0" promptText="Search Here" style="-fx-background-color: #d7d9e0;" unFocusColor="#e1dbdb">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </JFXTextField>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+      
+      <Pane prefHeight="77.0" prefWidth="908.0" style="-fx-background-color: #9CC900;">
+         <children>
+            <Label fx:id="list" layoutX="202.0" layoutY="4.0" prefHeight="70.0" prefWidth="392.0" text="List of Guides" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Century Gothic" size="24.0" />
+               </font>
+            </Label>
+            <MenuButton fx:id="choice" layoutX="825.0" layoutY="47.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="76.0" text="FILTER BY" textFill="#14b20c">
+              <items>
+                <MenuItem fx:id="aff1" mnemonicParsing="false" onAction="#trier_par_date_creation" text="Type" />
+              </items>
+            </MenuButton>
+     
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

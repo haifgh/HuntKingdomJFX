@@ -1,5 +1,5 @@
 
-package entities;
+package Models;
 
 import java.io.Serializable;
 
@@ -16,24 +16,24 @@ public class LigneCommande implements Serializable {
    
     private Integer quantity;
 
-    private Float price;
+    private Double price;
     
     private Integer idProduit;
     
-    private Integer idLC;
+    private Integer idC;
     
     public LigneCommande() {
     }
 
-    public LigneCommande(Integer id, Integer quantity, Float price, Integer idProduit, Integer idLC) {
+    public LigneCommande(Integer id, Integer quantity, Double price, Integer idProduit, Integer idC) {
         this.id = id;
         this.quantity = quantity;
         this.price = price;
         this.idProduit = idProduit;
-        this.idLC = idLC;
+        this.idC = idC;
     }
 
-    public LigneCommande(Integer quantity, Float price, Integer idProduit) {
+    public LigneCommande(Integer quantity, Double price, Integer idProduit) {
         this.quantity = quantity;
         this.price = price;
         this.idProduit = idProduit;
@@ -47,12 +47,12 @@ public class LigneCommande implements Serializable {
         this.idProduit = idProduit;
     }
 
-    public Integer getIdLC() {
-        return idLC;
+    public Integer getIdC() {
+        return idC;
     }
 
-    public void setIdLC(Integer idLC) {
-        this.idLC = idLC;
+    public void setIdC(Integer idC) {
+        this.idC = idC;
     }
   
 
@@ -72,11 +72,11 @@ public class LigneCommande implements Serializable {
         this.quantity = quantity;
     }
 
-    public Float getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
        
@@ -100,7 +100,8 @@ public class LigneCommande implements Serializable {
 
     @Override
     public String toString() {
-        return "pidev.entities.Produit[ id=" + id + " ]";
+        return "LigneCommande{" + "id=" + id + ", quantity=" + quantity + ", price=" + price + ", idProduit=" + idProduit + ", idC=" + idC + '}';
     }
+   
 
 }
