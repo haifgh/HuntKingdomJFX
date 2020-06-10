@@ -91,7 +91,7 @@ public class Commentaire {
 
     @Override
     public String toString() {
-        return "Commentaire{" + "id=" + id + ", guide_id=" + guide_id + ", user_id=" + user_id + ", contenu=" + contenu + ", date=" + date + '}';
+        return  "contenu:"+ contenu+"date:" + date ;
     }
     
 }

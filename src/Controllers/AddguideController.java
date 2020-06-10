@@ -96,9 +96,10 @@ try {
    
 //sg.ajouterguide(titre, categorie, description, lien, g, selectedFile);*/
        
-
+if ( !titre.getText().isEmpty()||!categorie.getText().isEmpty()
+                  ||!description.getText().isEmpty()||!lien.getText().isEmpty()   ){
         Guide g=new Guide();
-
+          
            // Groupe group = new Groupe(u,, String description, String photo,categorie);
             g.setPhoto(selectedFile.getName());
             g.setTitre(titre.getText());
@@ -106,18 +107,27 @@ try {
             g.setDescription(description.getText());
             g.setLien(lien.getText());
             sg.ajouterguide(g);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
-            alert.setHeaderText("Annonce Added");
-            alert.setContentText("Annonce successfully added");
+            alert.setHeaderText("Guide Added");
+            alert.setContentText("Guide successfully added");
             alert.showAndWait();
-        
+                    }
+              else{
+             Alert alert = new Alert(Alert.AlertType.ERROR);
+         alert.setTitle("Dialog");
+       
+   alert.setContentText("Please fill all the fields !");
+             alert.showAndWait();
+}
+ 
     }
+    
 
     @FXML
     private void Backtolist(ActionEvent event) {
         try {   
-       AnchorPane pane   = FXMLLoader.load(getClass().getResource("Showguide.fxml"));
+       AnchorPane pane   = FXMLLoader.load(getClass().getResource("/views/Showguide.fxml"));
   
 Stage stage = new Stage();
 stage.setScene(new Scene(pane));

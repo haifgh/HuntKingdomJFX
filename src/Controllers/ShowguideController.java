@@ -46,8 +46,7 @@ public class ShowguideController implements Initializable {
     @FXML
     private TableView<Guide> table_l;
     private int as;
-    @FXML
-    private TableColumn<Guide, Integer> col_id;
+    
     @FXML
     private TableColumn<Guide, String> col_titre;
     @FXML
@@ -81,7 +80,7 @@ public class ShowguideController implements Initializable {
         ServiceGuide srvg = new ServiceGuide();
         srvg.afficherguide().stream().forEach((p) -> {obsguidelist.add(p);});
         
-       col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+      // col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
        col_titre.setCellValueFactory(new PropertyValueFactory<>("titre"));
        col_datecreation.setCellValueFactory(new PropertyValueFactory<>("date_creation"));
        col_categorie.setCellValueFactory(new PropertyValueFactory<>("categorie"));
@@ -96,14 +95,14 @@ public class ShowguideController implements Initializable {
     @FXML
     private void AddGuide(ActionEvent event) {
      try {   
-       AnchorPane pane   = FXMLLoader.load(getClass().getResource("Addguide.fxml"));
+       AnchorPane pane   = FXMLLoader.load(getClass().getResource("/Views/Addguide.fxml"));
   
 Stage stage = new Stage();
 stage.setScene(new Scene(pane));
 stage.show();
     } catch(Exception e)
     {
-     System.out.println("eer");
+     System.out.println("error");
 }
     
     }
@@ -130,7 +129,7 @@ vs.afficherguide();
         try {   
        FXMLLoader pane = new FXMLLoader
                         (getClass()
-                         .getResource("Updateguide.fxml"));
+                         .getResource("/Views/Updateguide.fxml"));
                                          Stage primaryStage=new Stage();
                 Parent root = pane.load();
                 Scene scene=new Scene(root);
@@ -170,7 +169,7 @@ vs.afficherguide();
        
     ServiceGuide srvg = new ServiceGuide();
          srvg.afficherguide().stream().forEach((p) -> {obsguidelist.add(p);});
-       col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+     //  col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
        col_titre.setCellValueFactory(new PropertyValueFactory<>("titre"));
        col_datecreation.setCellValueFactory(new PropertyValueFactory<>("date_creation"));
        col_categorie.setCellValueFactory(new PropertyValueFactory<>("categorie"));
@@ -187,16 +186,7 @@ vs.afficherguide();
 
     @FXML
     private void Gotoguides(ActionEvent event) {
-     try {   
-       AnchorPane pane   = FXMLLoader.load(getClass().getResource("Showguideuser.fxml"));
-  
-Stage stage = new Stage();
-stage.setScene(new Scene(pane));
-stage.show();
-    } catch(Exception e)
-    {
-     System.out.println("eer");
-}
+     setCellTableNormale();
     
     }
     

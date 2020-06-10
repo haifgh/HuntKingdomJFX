@@ -5,6 +5,7 @@
  */
 package Services;
 
+
 import Models.Guide;
 import Models.Likes;
 import Models.User;
@@ -32,14 +33,13 @@ public class ServiceGuide {
 public ServiceGuide(){
       con=Connexion.getInstance().getCnx();
 }
-   @Override
-    public void ajouterguide(Guide g){
+    public void ajouterguide(Guide g)throws SQLException{
         try {
         java.util.Date date1 = new java.util.Date();
         String date_creation= new SimpleDateFormat("yyyy-MM-dd").format(date1);
         g.setDate_creation(date_creation);
             Statement st = con.createStatement();
-            String req="insert into guide values ("+g.getId()+", '"+g.getTitre()+"','"+g.getDate_creation()+"','"+g.getCategorie()+"','"+g.getDescription()+"','"+g.getLien()+"','"+g.getPhoto()+"','"+g.getNote()+"')";
+            String req="insert into guide values ("+g.getId()+", '"+g.getTitre()+"','"+g.getDate_creation()+"','"+g.getCategorie()+"','"+g.getDescription()+"','"+g.getLien()+"','"+g.getNote()+"','"+g.getPhoto()+"')";
             st.executeUpdate(req);
             System.out.println("guide inseré");
         } catch (SQLException ex) {
@@ -60,6 +60,8 @@ public ServiceGuide(){
         }
     
  }*/
+    
+    
         public void modifierguide(Guide g){
         try {
             PreparedStatement pt  =con.prepareStatement("update guide set titre=?,categorie=?,description=?,lien=?,photo=? where id=?");
@@ -67,8 +69,8 @@ public ServiceGuide(){
             pt.setString(1, g.getTitre());
             pt.setString(2, g.getCategorie());
             pt.setString(3,g.getDescription());
-            pt.setString(4, g.getLien());
-            pt.setString(5, g.getPhoto());
+            pt.setString(5, g.getLien());
+            pt.setString(4, g.getPhoto());
              pt.setInt(6, g.getId());
             pt.executeUpdate();
             
@@ -94,7 +96,7 @@ public ServiceGuide(){
         }
     }
     
-    @Override
+
     public List<Guide> afficherguide() {
          Statement  st = null ;
         List<Guide> lsguide = new ArrayList<Guide>();
@@ -166,7 +168,7 @@ return lsguide;
             ResultSet rs = pt.executeQuery();
             while(rs.next()){
 
-                Guide g = new Guide(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getDouble(8));
+                Guide g = new Guide(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(8),rs.getDouble(7));
                 ls.add(g);
             }
 
@@ -240,11 +242,11 @@ public int FindValeurJaimeByIdUserAndIdGujet(int id_user, int id_guide) throws S
 
      public List<Guide> TrierParDateCreation() throws SQLException {
         List<Guide> list = new ArrayList<>();
-           PreparedStatement pt = con.prepareStatement("select * from guide ORDER BY date_creation DESC limit 3");
+           PreparedStatement pt = con.prepareStatement("select * from guide ORDER BY date_creation desc LIMIT 2 ");
         ResultSet rs=pt.executeQuery();
         Guide com = null;
         while (rs.next()) {
-            com = new   Guide(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getDouble(8));
+            com = new   Guide(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(8),rs.getDouble(7));
             list.add(com);
 
         }
@@ -256,7 +258,7 @@ public int FindValeurJaimeByIdUserAndIdGujet(int id_user, int id_guide) throws S
      public List<Guide> afficheGuide(String titre) throws SQLDataException {
   List<Guide> list=new ArrayList<Guide>();
            try {
-               String req="SELECT * FROM `event` where `titre`='"+titre+"'";
+               String req="SELECT * FROM `guide` where `titre`='"+titre+"'";
                Statement st;
                  st = con.createStatement();
                  ResultSet rs=st.executeQuery(req);
@@ -270,8 +272,8 @@ public int FindValeurJaimeByIdUserAndIdGujet(int id_user, int id_guide) throws S
                 g.setCategorie(rs.getString(4));
                 g.setDescription(rs.getString(5));
                 g.setLien(rs.getString(6));
-                g.setPhoto(rs.getString(7));
-                g.setNote(rs.getDouble(8));
+                g.setPhoto(rs.getString(8));
+                g.setNote(rs.getDouble(7));
                
                 list.add(g);
 

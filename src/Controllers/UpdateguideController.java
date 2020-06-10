@@ -21,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -64,7 +65,8 @@ FileChooser Fc = new FileChooser();
     @FXML
     private void SaveGuide(ActionEvent event) throws SQLException{
         
-        
+        if ( !titre.getText().isEmpty()||!categorie.getText().isEmpty()
+                  ||!description.getText().isEmpty()||!lien.getText().isEmpty()   ){
 
         g.setTitre(titre.getText());
 
@@ -80,7 +82,19 @@ g.setId(g.getId());
      
         System.out.println(this.g.getId());
    sg.modifierguide(g);
-        
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+            alert.setHeaderText("Guide Updated");
+            alert.setContentText("Guide successfully updated");
+            alert.showAndWait();
+                    }
+              else{
+             Alert alert = new Alert(Alert.AlertType.ERROR);
+         alert.setTitle("Dialog");
+       
+   alert.setContentText("Please fill all the fields !");
+             alert.showAndWait();
+}
         
 }  
 
@@ -97,7 +111,7 @@ g.setId(g.getId());
     @FXML
     private void Backtolist(ActionEvent event) {
         try {   
-       AnchorPane pane   = FXMLLoader.load(getClass().getResource("Showguide.fxml"));
+       AnchorPane pane   = FXMLLoader.load(getClass().getResource("/views/Showguide.fxml"));
   
 Stage stage = new Stage();
 stage.setScene(new Scene(pane));

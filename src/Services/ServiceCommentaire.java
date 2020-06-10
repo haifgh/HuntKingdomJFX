@@ -50,29 +50,49 @@ public class ServiceCommentaire {
         }
     
     
-        public void modifiercommentaire(Commentaire c){
-        try {
-            PreparedStatement pt  =con.prepareStatement("update commentaire set guide_id=?,contenu=? where id=?");
-            pt.setInt(3, c.getId());
-            pt.setString(2, c.getContenu());
-            pt.setInt(1, c.getGuide_id());
+        public void modifiercommentaire(Commentaire c) throws SQLException{
+ // String pt= "update commentaire set contenu=?, guide_id=?,user_id=?,date=? where id=?" ;
+   //         PreparedStatement statement = con.prepareStatement(pt,PreparedStatement.RETURN_GENERATED_KEYS);
+        
+       
+try{
+        
+            PreparedStatement pt  =con.prepareStatement("update commentaire set contenu=? where id=?");
+            pt.setInt(2, c.getId());
+            pt.setString(1, c.getContenu());
+            //con.setInt(2,c.getGuide_id());
+            //con.setInt(3, c.getUser_id());
+            //con.setString(4, c.getDate());
+           
             pt.executeUpdate();
-            
-            int rowsUpdated = pt.executeUpdate();
+    System.out.println("get");
+           int rowsUpdated = pt.executeUpdate();
             if (rowsUpdated > 0) {
                 System.out.println("La modification de commentaire" + c.getId() + " a été éffectué avec succée ");
-            }
-        } catch (SQLException ex) {
+            
+            }} catch (SQLException ex) {
             Logger.getLogger(ServiceCommentaire.class.getName()).log(Level.SEVERE, null, ex);
         }
     
     }
+        public void updateContrat(int id ,String contenu) throws SQLException {
+      PreparedStatement pla = con.prepareStatement("update commentaire set   contenu=? where id=?");
+        pla.setString(1, contenu);
+        pla.setInt(2, id);
+    
+        pla.executeUpdate();
+
+    }
     
     public void supprimercommentaire(Commentaire c){
         
+        
+        String sql ="DELETE FROM commentaire WHERE id=?";
         try {
-            PreparedStatement pt = con.prepareStatement("delete from commentaire where id=?");
-            pt.setInt(1,c.getId());
+                    
+            PreparedStatement pt = con.prepareStatement(sql);
+            int id = c.getId();
+            pt.setInt(1,id);
             pt.executeUpdate();
              System.out.println("commentaire supprimer");
         } catch (SQLException ex) {
@@ -82,7 +102,8 @@ public class ServiceCommentaire {
     
     public List<Commentaire> affichercommentaire(){
        
-             Statement  pt = null ;
+             Statement  pt = null ;            
+
             List<Commentaire> ls =new ArrayList<Commentaire>();
             ls.clear();
             String query = "SELECT * FROM commentaire  "; //pagination
@@ -93,7 +114,7 @@ public class ServiceCommentaire {
         
             while(rs.next()){
                 
-                ls.add(new Commentaire(rs.getInt("guide_id")
+                ls.add(new Commentaire(rs.getInt("id"),rs.getInt("guide_id")
                         ,rs.getInt("user_id")
                         ,rs.getString("contenu")
                         ,rs.getString("date")));
@@ -195,7 +216,7 @@ public ObservableList<Commentaire> getAllCommentByGuide(Guide g) throws SQLDataE
                  cm.setGuide_id(rs.getInt(2));
                  cm.setUser_id((rs.getInt(3)));
                  cm.setContenu(rs.getString(4));
-                 
+                 cm.setDate(rs.getString(5));
                  list.add(cm);
                  c++;
                  
@@ -219,7 +240,26 @@ public ObservableList<Commentaire> getAllCommentByGuide(Guide g) throws SQLDataE
 
 }}
 
- public void removeComment(int id) 
+ public void removeComment(Commentaire c) 
+       {
+                   
+        try { String delete = "DELETE FROM commentaire WHERE id = ? ";
+        PreparedStatement st2 = con.prepareStatement(delete);
+        int id = c.getId();
+        
+        st2.setInt(1,id);
+ 
+
+
+        st2.executeUpdate();
+       
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceCommentaire.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+public void removeCommentuser(int id) 
        {
                    
         String requete = "DELETE FROM commentaire WHERE id="+id;
@@ -231,5 +271,23 @@ public ObservableList<Commentaire> getAllCommentByGuide(Guide g) throws SQLDataE
             Logger.getLogger(ServiceCommentaire.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+public void modifiercommentaireUser( String contenu ,int id) throws SQLException{
+      
+try{
+        
+            PreparedStatement pt  =con.prepareStatement("update commentaire set contenu=? where id=?");
+       pt.setString(1, contenu);
+            pt.setInt(2, id);
+            pt.executeUpdate();
+    System.out.println("get");
+           int rowsUpdated = pt.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("La modification de commentaire a été éffectué avec succée ");
+            
+            }} catch (SQLException ex) {
+            Logger.getLogger(ServiceCommentaire.class.getName()).log(Level.SEVERE, null, ex);
+        }
     
+    }
+   
 }

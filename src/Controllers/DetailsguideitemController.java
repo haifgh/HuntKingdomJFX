@@ -13,23 +13,35 @@ import Services.ServiceCommentaire;
 import Services.ServiceGuide;
 import Services.ServiceLikes;
 import Services.ServiceRate;
+import Utilities.Connexion;
 import Utilities.UserSession;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.jfoenix.controls.JFXButton;
+import java.io.File;
+import java.io.FileOutputStream;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URL;
 import static java.rmi.Naming.list;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLDataException;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import static java.util.Collections.list;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static Controller.ShowguideuserController.idG;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -39,6 +51,10 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -70,8 +86,6 @@ public class DetailsguideitemController implements Initializable {
     @FXML
     private JFXButton type_vote_non;
     @FXML
-    private JFXButton Back;
-    @FXML
     private JFXButton addComment;
     @FXML
     private JFXButton back;
@@ -79,16 +93,18 @@ public class DetailsguideitemController implements Initializable {
     private ImageView img_gui;
     @FXML
     private TextField commentText;
-    @FXML
-    private Label nbrLike;
-    @FXML
-    private Label nbrdeslike;
+ Connection con;   
 
-    ObservableList<Commentaire> data;
+   ObservableList<Commentaire> data;
+ private ObservableList<String> items = FXCollections.observableArrayList();
     int i,i2 ;
-    public static int idC ;
+    public  int idC ;
+    public  int idU ;
+    public   int cd;
+   String contenu ;
     @FXML
-    private ListView<Commentaire> listcom;
+    //private ListView<Commentaire> listcom;
+        private ListView<String> listcom;    
     // int idCli=Util.UserSession.getUser().getId();
      ServiceCommentaire cs =new ServiceCommentaire();
         ServiceGuide sg=new ServiceGuide();
@@ -103,10 +119,20 @@ public class DetailsguideitemController implements Initializable {
       int Value;    
     @FXML
     private Text question1;
+    @FXML
+    private JFXButton updateComment;
+    @FXML
+    private JFXButton deleteComment;
+    Commentaire c=new Commentaire();
         public void setEvenement(Guide evs) {
         this.evs=evs;
         
     }
+
+    public DetailsguideitemController() {
+        con=Connexion.getInstance().getCnx();
+    }
+        
         
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -127,32 +153,6 @@ public class DetailsguideitemController implements Initializable {
           
      
 
-          
-        
-        
-        
-        
-         /*System.out.println(""+idG);
-       for (Guide g1 : le) {
-          
-           if  (idG==g1.getId()){
-                System.err.println("okiiiiiiiiiiii"+ sg.findGuideById(idG).getPhoto());
-                
-                question.setText(sg.findGuideById(idG).getTitre());
-                
-                img_gui.setImage(new Image("http://localhost/pidev/web/images//" + sg.findGuideById(idG).getPhoto()));
-                try {
-                    data = cs.getAllCommentByGuide(sg.findGuideById(idG));
-                } catch (SQLDataException ex) {
-                    Logger.getLogger(DetailsguideitemController.class.getName()).log(Level.SEVERE, null, ex);
-                }   
-         listcom.setItems(data);
-      //  listcom.setCellFactory((ListView<Commentaire> param) -> new ListViewCommentEvent());
-            } else 
-              System.out.println("erreur");*/
-              
-       
-       
     
     public void showEv() throws SQLException {
     
@@ -160,9 +160,45 @@ public class DetailsguideitemController implements Initializable {
         question.setText(evs.getTitre());
          img_gui.setImage(new Image("http://localhost/pidev/web/images//" + evs.getPhoto()));
         question1.setText(evs.getDescription());
-        data=cs.getAllCommentByGuide(evs);
-        listcom.setItems(data);
+        //data=cs.getAllCommentByGuide(evs);
+        listcom.setItems(items);
+         listercomment(evs);
+      //  listcom.setItems(data);
     }
+    public void listercomment( Guide g)
+    {
+        
+         try{
+            this.data = FXCollections.observableArrayList();
+            
+        
+           List<Commentaire> list=new ArrayList<Commentaire>();
+             int c=0;
+             String req="select * from commentaire where guide_id="+g.getId();
+             Statement st=con.createStatement();
+             ResultSet rs=st.executeQuery(req);
+            while(rs.next())
+            {
+               //items.add((rs.getString(1)));
+               //items.add((rs.get(1)));
+               // String b = rs.getString(2);
+              // System.out.println(rs.getString(2));
+              //Commentaire cm=new Commentaire();
+                 
+                 
+                 items.add(rs.getString(4));
+              //  items.add(rs.getString(5));
+               
+            }
+            
+            st.close();
+        }
+        catch(SQLException ex){
+            Logger.getLogger(ServiceCommentaire.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
 
     @FXML
     private void Like(ActionEvent event) throws SQLException {
@@ -185,20 +221,9 @@ public class DetailsguideitemController implements Initializable {
        notificationBuilder.darkStyle();
        notificationBuilder.show();
                        
-           Parent root ;
-        try {
-          root = FXMLLoader.load(getClass().getResource("detailsguideitem.fxml"));
-            Stage myWindow =  (Stage) commentText.getScene().getWindow();
-            Scene sc = new Scene(root);
-            myWindow.setScene(sc);
-            myWindow.setTitle("comment");
-            myWindow.show();
-           
-        } catch (IOException ex) {
-            Logger.getLogger(DetailsguideitemController.class.getName()).log(Level.SEVERE,null,ex);
            
         }
-    }
+    
 
     @FXML
     private void Dislike(ActionEvent event) throws SQLException {
@@ -221,45 +246,39 @@ public class DetailsguideitemController implements Initializable {
        notificationBuilder.darkStyle();
        notificationBuilder.show();
                        
-           Parent root ;
-        try {
-          root = FXMLLoader.load(getClass().getResource("detailsguideitem.fxml"));
-            Stage myWindow =  (Stage) commentText.getScene().getWindow();
-            Scene sc = new Scene(root);
-            myWindow.setScene(sc);
-            myWindow.setTitle("comment");
-            myWindow.show();
-           
-        } catch (IOException ex) {
-            Logger.getLogger(DetailsguideitemController.class.getName()).log(Level.SEVERE,null,ex);
-           
-        }
+         
         
     }
 
-    @FXML
-    private void close(ActionEvent event) {
-    }
 
     @FXML
     private void AddComment(ActionEvent event) throws IOException {
        // Guide g=new Guide();
+       if (!commentText.getText().equals("")||commentText.getText().length()>10){
          Commentaire c=new Commentaire(evs.getId(),f.getId(),commentText.getText());
          cs.ajoutercommentaire(c);
          System.out.println("OK");
-           
-            SuccesNotification();
-    }
+         refreshList();
+           cd=f.getId();
+           System.out.println("l'id de user"+cd);
+            SuccesNotification();}
+            else{
+          Alert alert = new Alert(Alert.AlertType.ERROR);
+         alert.setTitle("Dialog");
+       
+   alert.setContentText("Sorry empty field !");
+
+        alert.showAndWait();
+    }}
 
     @FXML
     private void backtoGuide(ActionEvent event) {
      try {
-           Parent root = FXMLLoader.load(getClass().getResource("Showguideuser.fxml"));
-            Stage myWindow =  (Stage) addComment.getScene().getWindow();
-            Scene sc = new Scene(root);
-            myWindow.setScene(sc);
-            myWindow.setTitle("Guide List");
-            myWindow.show();
+            AnchorPane pane   = FXMLLoader.load(getClass().getResource("/Views/Showguideuser.fxml"));
+  
+Stage stage = new Stage();
+stage.setScene(new Scene(pane));
+stage.show();
            
         } catch (IOException ex) {
            // Logger.getLogger(ReponseItemController.class.getName()).log(Level.SEVERE,null,ex);
@@ -330,6 +349,176 @@ public class DetailsguideitemController implements Initializable {
    //alert.setContentText("remplir votre champs!");
 
      //   alert.showAndWait();
+
+    @FXML
+    private void updateComment(ActionEvent event) throws SQLException {
+    if(commentText.getText().isEmpty())
+     {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Vérification");
+ 
+        // alert.setHeaderText("Results:");
+        alert.setContentText("Sorry The field must contain a value!");
+ 
+        alert.showAndWait();
+     }
+        
+        
+        else if(a.equals(commentText.getText()))
+        {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Comment update");
+                alert.setHeaderText(null);
+                alert.setContentText("You haven't made any changes!");
+                alert.showAndWait();
+                // clearData(event);
+                 refreshList();
+        }
+     else
+        {
+           
+              if(idU==f.getId()){  
+               cs.modifiercommentaireUser(commentText.getText(), idC);
+               
+               Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Comment update");
+                alert.setHeaderText(null);
+                alert.setContentText("comment successfully updated");
+                alert.showAndWait();
+                // clearData(event);
+                 refreshList();
+        }else{
+                         Alert alert3 = new Alert(Alert.AlertType.INFORMATION);
+                alert3.setTitle("error");
+                alert3.setHeaderText(null);
+                alert3.setContentText("error");
+                    }
+    }}
+   
+    @FXML
+    private void deleteComment(ActionEvent event) {
+        
+     
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Deleting a comment");
+                alert.setHeaderText(null);
+                alert.setContentText("Are you sure you want to delete ?");
+               // alert.showAndWait();
+                //clearData(event);
+
+                 Optional<ButtonType> result = alert.showAndWait();
+                 if (result.get() == ButtonType.OK){
+                       Commentaire com=new Commentaire(evs.getId(), f.getId(),commentText.getText() );
+                    if(idU==f.getId()){
+                       cs.removeCommentuser(idC);
+                       refreshList();
+                     //   System.out.println(cd);
+                    } else {
+                         Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                alert1.setTitle("error");
+                alert1.setHeaderText(null);
+                alert1.setContentText("error");
+                    }}else{
+                    
+                 }
+                 
+    
+   
+    }
+    public void setFILES(String Body, String Body1, String Body2, String Body3) {
+       
+        try {
+
+            OutputStream file = new FileOutputStream(new File(evs.getTitre()+".pdf"));
+
+            Document document = new Document();
+
+            PdfWriter.getInstance(document, file);
+
+            document.open();
+            document.addTitle("Guides");
+
+            //com.itextpdf.text.Image img;
+            //img = com.itextpdf.text.Image.getInstance("C:/Users/HP/Downloads/UTALENT/src/GOT/event/Images/louay.jpg");
+            //com.itextpdf.text.Image.getInstance(img);
+            //document.add(img);
+            document.add(new Paragraph("                    "));
+            document.add(new Paragraph("                    "));
+
+            document.add(new Paragraph(Body));
+            document.add(new Paragraph(Body1));
+            document.add(new Paragraph(Body2));
+            document.add(new Paragraph(Body3));
+            document.close();
+            file.close();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }}
+         
+
+    
+    public void btnPDF(String Body, String Body1, String Body2, String Body3) throws IOException, SQLException {
+     
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Button button2 = new Button();
+        button2.setStyle("-fx-background-color: #00ff00");
+        alert.setTitle("PDF ");
+        alert.setContentText("Hello would you like to print a pdf Guide!");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            setFILES(Body, Body1, Body2, Body3);
+
+        } else {
+
+        }
+    }
+    
+
+    @FXML
+    private void generatepdf(ActionEvent event) throws SQLException {
+        String Body = "Heloo S/M "+f.getUsername()+" welcome to our site ";
+                                    String Body1 = "this is a guide to help you "+evs.getLien();
+                                    String Body2 = "thank you";
+                                    String Body3 = "";
+                                    try {
+                                        btnPDF(Body, Body1, Body2, Body3);
+                                    } catch (IOException ex) {
+                                        System.out.println(ex.getMessage());
+                                    }
+    }
+
+    @FXML
+    private void Selec(MouseEvent event) {
+        try {
+                    String query = "select * from commentaire where contenu=?";
+                    PreparedStatement pst = con.prepareStatement(query);
+                    pst.setString(1, (String)listcom.getSelectionModel().getSelectedItem());
+                    ResultSet rs = pst.executeQuery();
+                    
+                    while(rs.next())
+                    {
+                     commentText.setText(rs.getString("contenu"));
+                     contenu=rs.getString("contenu");
+                    //   c = rs.getString("contenu");
+                        idC = rs.getInt(1);
+                        System.out.println(idC);
+                        idU=rs.getInt(3);
+                        System.out.println(idU);
+                    }
+                    
+                } catch (SQLException ex) {
+                    Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        
+    }
+    public void refreshList()
+ {
+   items.clear();
+   listercomment(evs);
+ }
     }
     
 

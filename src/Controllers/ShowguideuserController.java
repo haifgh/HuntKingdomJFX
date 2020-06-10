@@ -90,8 +90,8 @@ public class ShowguideuserController implements Initializable {
     private Label list; 
     private JFXTextField searchField;
 List<Guide> le = new ArrayList<>();
- User f = UserSession.getInstance().getUser();    
- User f1=new User();
+// User f = UserSession.getInstance().getUser();    
+// User f1=new User();
  Guide g=new Guide();
 @FXML
     private JFXTextField rech;
@@ -100,9 +100,9 @@ List<Guide> le = new ArrayList<>();
       
    cnx=Connexion.getInstance().getCnx();
          UserServices us = new UserServices();
-         
-         User e = new User(20, "java", "java", "java@java", "java2@java", true, "java");
-               us.Authentification(e);
+     //    us.Authentification(f1);
+//         User e = new User(20, "java", "java", "java@java", "java2@java", true, "java");
+           //    us.Authentification(e);
       
         le = sg.afficherguide();   
         for (Guide g1 : le) {
@@ -166,7 +166,7 @@ List<Guide> le = new ArrayList<>();
 //stage.show();
 
       FXMLLoader loader = new FXMLLoader();
-                     loader.setLocation(getClass().getResource("detailsguideitem.fxml"));
+                     loader.setLocation(getClass().getResource("/Views/detailsguideitem.fxml"));
                      //    loader.setLocation(getClass().getResource("Readdetailsguide.fxml"));
                         AnchorPane pp = loader.load();
                       DetailsguideitemController shev = loader.getController();
@@ -175,8 +175,8 @@ List<Guide> le = new ArrayList<>();
                          shev.setEvenement(g1);
                         shev.showEv();
     
-  /*  root = FXMLLoader.load(getClass().getResource("detailsguideitem.fxml"));
-    root = FXMLLoader.load(getClass().getResource("Readdetailsguide.fxml"));
+   // root = FXMLLoader.load(getClass().getResource("detailsguideitem.fxml"));
+    /*root = FXMLLoader.load(getClass().getResource("Readdetailsguide.fxml"));
             Stage myWindow =  (Stage) bt2.getScene().getWindow();
             Scene sc = new Scene(root);
             myWindow.setScene(sc);
@@ -204,55 +204,13 @@ List<Guide> le = new ArrayList<>();
         return Collections.emptyList();
     }
  
-*/
-   /* private void loadDateCreation() throws SQLException {
-        List<Guide> guide = fetchDateCreation();
-        Node[] nodes = new Node[guide.size()];
-
-        AtomicInteger i = new AtomicInteger(0);
-        guide.forEach(sujet -> {
-            int j = i.getAndIncrement();
-            Node node = nodes[j] = loadNewItemNode();
-
-            try {
-                displaySujetDetails(node, sujet);
-            } catch (SQLException ex) {
-                Logger.getLogger(AffichageForumController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            setupActions(node, sujet, j);
-
-            setHoverStyleForNode(nodes, j);
-
-            pnItems.getChildren().add(node);
-        });
-
-        if (nodes.length > 0) {
-            pnItems.setStyle("-fx-background-color : #53639F");
-            pnItems.toFront();
-        }
-    }
-*/
-    
-    
-    
-    
-    
-    
-    
-    
-    
+*/ 
     @FXML
-    private void trier_par_date_creation(ActionEvent event) {
-    }
-
-    @FXML
-    private void Search(ActionEvent event) {
-       // Guide g1=new Guide();
-        le=sg.searchByName(rech.getText());
-          for (Guide g1 : le) {
+    private void trier_par_date_creation(ActionEvent event) throws SQLException {
+         le=sg.TrierParDateCreation();
+         for (Guide g1 : le) {
          vbox1.getChildren().clear();
-        
+        sg.afficherguide();
     ImageView photo = new ImageView(new Image("http://localhost/pidev/web/images//"+ g1.getPhoto()));
      Button b1=new Button();          
             Label titre = new Label();
@@ -298,16 +256,21 @@ List<Guide> le = new ArrayList<>();
 
             vbox1.getChildren().add(h1);
                   vbox1.getChildren().add(btn);
-                  sg.searchByName(rech.getText());
+                  //sg.searchByName(rech.getText());
      bt2.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
+                     Parent root ;
                              try {   
-       AnchorPane pane   = FXMLLoader.load(getClass().getResource("Detailsguideitem.fxml"));
-  
-Stage stage = new Stage();
-stage.setScene(new Scene(pane));
-stage.show();
+       FXMLLoader loader = new FXMLLoader();
+                     loader.setLocation(getClass().getResource("/Views/detailsguideitem.fxml"));
+                     //    loader.setLocation(getClass().getResource("Readdetailsguide.fxml"));
+                        AnchorPane pp = loader.load();
+                      DetailsguideitemController shev = loader.getController();
+                      // ReaddetailsguideController shev=loader.getController();
+                        a.getChildren().setAll(pp);
+                         shev.setEvenement(g1);
+                        shev.showEv();
     } catch(Exception e)
     {
      System.out.println("eer");
@@ -315,6 +278,99 @@ stage.show();
                 }});
         
     }
+    }
+
+    @FXML
+    private void Search(ActionEvent event) throws SQLException {
+       // Guide g1=new Guide();
+        le=sg.afficheGuide(rech.getText());
+          for (Guide g1 : le) {
+         vbox1.getChildren().clear();
+        
+    ImageView photo = new ImageView(new Image("http://localhost/pidev/web/images//"+ g1.getPhoto()));
+     Button b1=new Button();          
+            Label titre = new Label();
+            Label description = new Label();
+            Label date_creation = new Label();
+              Text add = new Text("tittre: ");
+            Text ty = new Text("description: ");
+            Text dd = new Text("date creation: ");
+               titre.setText(g1.getTitre());
+              description.setText(g1.getDescription());
+            date_creation.setText((g1.getDate_creation()));
+                        
+             add.setFill(Color.DARKORANGE);
+            ty.setFill(Color.DARKORANGE);
+            dd.setFill(Color.DARKORANGE);
+          // add.setFill(Color.DARKORANGE);
+          
+            HBox h1 = new HBox();
+            HBox btn = new HBox();
+ 
+             h1.setSpacing(10);
+            photo.setFitHeight(200);
+           photo.setFitWidth(400);
+   h1.getChildren().add(photo);
+      // h1.getChildren().add(ty);
+       h1.spacingProperty();
+         h1.getChildren().add(add);
+           h1.getChildren().add(titre);
+             h1.getChildren().add(dd);
+            h1.getChildren().add(date_creation);
+            h1.getChildren().add(ty);
+                 h1.getChildren().add(description);
+              
+            
+                  vbox1.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
+                    + "-fx-border-width: 2;" + "-fx-border-insets: 5;" + "-fx-background-color:white;"
+                    + "-fx-border-radius: 5;" + "-fx-border-color: black;" + "-fx-border-height: 70");
+    vbox1.setSpacing(20);
+    vbox1.setAlignment(Pos.CENTER);
+      Button bt2 = new Button("more Détails"); 
+      Button bt3=new Button("back ") ;         
+      
+                  btn.getChildren().add(bt2);
+                  btn.getChildren().add(bt3);
+            vbox1.getChildren().add(h1);
+                  vbox1.getChildren().add(btn);
+                  sg.searchByName(rech.getText());
+     bt2.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                     Parent root ;
+                             try {
+                                 
+     FXMLLoader loader = new FXMLLoader();
+                     loader.setLocation(getClass().getResource("/Views/detailsguideitem.fxml"));
+                     //    loader.setLocation(getClass().getResource("Readdetailsguide.fxml"));
+                        AnchorPane pp = loader.load();
+                      DetailsguideitemController shev = loader.getController();
+                      // ReaddetailsguideController shev=loader.getController();
+                        a.getChildren().setAll(pp);
+                         shev.setEvenement(g1);
+                        shev.showEv();
+    
+    } catch(Exception e)
+    {
+     System.out.println("eer");
+}
+                }});
+     bt3.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                             try {
+             Parent p       = FXMLLoader.load(getClass().getResource("/Views/Showguideuser.fxml"));
+           Stage stage = new Stage();
+stage.setScene(new Scene(p));
+stage.show();
+    } catch(Exception e)
+    {
+     System.out.println("eer");
+}
+                             }   
+        
+    });
+             }
 }} 
    
      
