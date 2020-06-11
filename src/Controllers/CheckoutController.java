@@ -20,15 +20,19 @@ import javafx.fxml.Initializable;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.AnchorPane;
 
 import javafx.stage.Stage;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.validation.RequiredFieldValidator;
 
 import Utilities.UserSession;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.layout.HBox;
 
 /**
  * FXML Controller class
@@ -37,22 +41,24 @@ import Utilities.UserSession;
  */
 public class CheckoutController implements Initializable {
     @FXML
-    private AnchorPane             pane;
+    private AnchorPane   pane;
     @FXML
-    private RequiredFieldValidator validator;
+    private JFXTextField addresse;
     @FXML
-    private JFXTextField           addresse;
+    private JFXTextField name;
     @FXML
-    private JFXTextField           name;
+    private JFXTextField tel;
     @FXML
-    private JFXTextField           tel;
+    private JFXButton    Confirm;
+    Parent               root;
     @FXML
-    private JFXButton              Confirm;
-    Parent                         root;
+    private Label        addresseErr;
+    @FXML
+    private Label        telErr;
 
     @FXML
     private void confirmAction(ActionEvent event) throws IOException {
-        if (addresse.validate() && tel.validate()) {
+        if (this.validateAddresse() && this.validateTel()) {
             Confirm.setDisable(true);
 
             FXMLLoader f = new FXMLLoader(getClass().getResource("/Views/FXMLDocument.fxml"));
@@ -69,6 +75,23 @@ public class CheckoutController implements Initializable {
             stage.setTitle("Pay");
             stage.setScene(new Scene(root, 1200, 400));
             stage.show();
+            stage.setOnHiding(e->{
+                HBox h = (HBox)pane.getParent().getParent().getParent().lookup("#content");
+            System.out.println(h);
+            FXMLLoader loader =
+            new FXMLLoader(getClass().getResource("/Views/OrdersForUser.fxml"));
+            AnchorPane r   = null;
+
+            try {
+            r = loader.load();
+            } catch (IOException ex) {
+            Logger.getLogger(OrdersForAdminController.class.getName())
+                  .log(Level.SEVERE, null, ex);
+            }
+
+            h.getChildren().setAll(r);
+            });
+            
         }
     }
 
@@ -79,18 +102,43 @@ public class CheckoutController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         name.setText(UserSession.getInstance().getUser().getUsername());
         name.setDisable(true);
-        addresse.getValidators().add(validator);
-        tel.getValidators().add(validator);
-        addresse.focusedProperty().addListener((o, oldVal, newVal) -> {
-                if (!newVal) {
-                    addresse.validate();
+        tel.setTextFormatter(new TextFormatter<>(change -> (change.getControlNewText().matches("([1-9][0-9]*)?"))
+                                                           ? change
+                                                           : null));
+        addresse.textProperty().addListener((o, oldVal, newVal) -> {
+                if (!oldVal.equals(newVal)) {
+                    this.validateAddresse();
                 }
             });
-        tel.focusedProperty().addListener((o, oldVal, newVal) -> {
-                if (!newVal) {
-                    tel.validate();
+        tel.textProperty().addListener((o, oldVal, newVal) -> {
+                if (!oldVal.equals(newVal)) {
+                    this.validateTel();
                 }
             });
+    }
+
+    private boolean validateAddresse() {
+        if (addresse.getText().length() < 8) {
+            addresseErr.setText("Address must be 8 characters or more");
+
+            return false;
+        } else {
+            addresseErr.setText("");
+
+            return true;
+        }
+    }
+
+    private boolean validateTel() {
+        if ((tel.getText().length() != 8)) {
+            telErr.setText("Phone number must be 8 digits");
+
+            return false;
+        } else {
+            telErr.setText("");
+
+            return true;
+        }
     }
 }
 

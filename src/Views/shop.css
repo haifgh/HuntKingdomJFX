@@ -136,5 +136,7 @@
 .custom-button{
     -fx-background-color:#27a816;
     -fx-text-fill:#ffffff;
-    -fx-padding: 0.5em 1em;
+    -fx-padding:  1em 2em;
+    -fx-border-insets: 0.5em 1em;
+    -fx-background-insets:0.5em 1em;
 }

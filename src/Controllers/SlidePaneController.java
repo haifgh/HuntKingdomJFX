@@ -44,12 +44,16 @@ public class SlidePaneController implements Initializable {
             try {
                 p = FXMLLoader.load(getClass().getResource("/Views/SlidePaneAdmin.fxml"));
                 content.getChildren().setAll(p);
-            } catch (IOException ex) {}
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
         } else {
             try {
                 p = FXMLLoader.load(getClass().getResource("/Views/SlidePaneUser.fxml"));
                 content.getChildren().setAll(p);
-            } catch (IOException ex) {}
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }
 }

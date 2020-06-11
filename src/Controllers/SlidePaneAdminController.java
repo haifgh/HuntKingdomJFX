@@ -21,6 +21,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
 import javafx.scene.Parent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
@@ -55,6 +56,14 @@ public class SlidePaneAdminController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(SlidePaneAdminController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void load_promote(MouseEvent event) throws IOException {
+        Parent p       = FXMLLoader.load(getClass().getResource("/Views/Promote1.fxml"));
+        HBox   content = (HBox) tabPane.getParent().getParent().getParent().getParent().getScene().lookup("#content");
+
+        content.getChildren().setAll(p);
     }
 }
 

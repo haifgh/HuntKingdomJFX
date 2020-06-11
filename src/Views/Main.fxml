@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" fx:id="main" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #c7ea46;" styleClass="mainFxmlClass" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainController">
+<AnchorPane id="AnchorPane" fx:id="main" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #d0f0c0;" styleClass="mainFxmlClass" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainController">
    <children>
       <JFXHamburger fx:id="burger" layoutX="1213.0" layoutY="36.0" prefHeight="34.0" prefWidth="38.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0" />
       <VBox alignment="CENTER" layoutX="199.0" layoutY="120.0" prefHeight="600.0" prefWidth="980.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="120.0">

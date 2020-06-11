@@ -79,6 +79,8 @@ public class FXMLDocumentController implements Initializable {
         Stage stage = (Stage) webView.getScene().getWindow();
 
         stage.close();
+        
+        
     }
 
     public void setAddress(String a) {

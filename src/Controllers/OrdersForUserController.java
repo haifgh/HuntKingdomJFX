@@ -12,10 +12,12 @@ import java.sql.Timestamp;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Callback;
 
 
 /**
@@ -39,7 +41,7 @@ public class OrdersForUserController implements Initializable {
     @FXML
     private TableColumn<Commande, String> address;
     @FXML
-    private TableColumn<Commande, Double> price;
+    private TableColumn<Commande, String> price;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -50,7 +52,28 @@ public class OrdersForUserController implements Initializable {
         deliveredAt.setCellValueFactory(new PropertyValueFactory<>("DateLivraison"));
         status.setCellValueFactory(new PropertyValueFactory<>("Status"));
         address.setCellValueFactory(new PropertyValueFactory<>("Addresse"));
-        price.setCellValueFactory(new PropertyValueFactory<>("PrixTotal"));
+       
+         Callback<TableColumn<Commande, String>, TableCell<Commande, String>> cellFactory1;
+        cellFactory1 = (TableColumn<Commande, String> param) -> {
+                           final TableCell<Commande, String> cell = new TableCell<Commande, String>() {
+                               @Override
+                               public void updateItem(String Item, boolean empty) {
+                                   super.updateItem(Item, empty);
+
+                                   if (empty) {
+                                       setGraphic(null);
+                                       setText(null);
+                                   } else {
+                                       Commande p = getTableView().getItems().get(getIndex());
+
+                                       setText(p.getPrixTotal().toString()+" TND");
+                                   }
+                               }
+                           };
+
+                           return cell;
+                       };
+         price.setCellFactory(cellFactory1);
         orderstable.setItems(cs.findAll());
     }    
     

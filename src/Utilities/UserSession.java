@@ -34,6 +34,9 @@ public class UserSession {
         } else {
             panier.put(idProduit, qte);
         }
+        if(panier.get(idProduit)<=0){
+            removeFromPanier(idProduit);
+        }
     }
 
     public void removeFromPanier(Integer idProduit) {

@@ -44,19 +44,13 @@ public class OrdersForAdminController implements Initializable {
     @FXML
     private TableView<Commande>              orderstable;
     @FXML
-    private TableColumn<Commande, String>    client;
-    @FXML
     private TableColumn<Commande, Timestamp> date;
     @FXML
     private TableColumn<Commande, Timestamp> deliveredAt;
     @FXML
     private TableColumn<Commande, String>    status;
     @FXML
-    private TableColumn<Commande, String>    address;
-    @FXML
-    private TableColumn<Commande, String>    tel;
-    @FXML
-    private TableColumn<Commande, Double>    price;
+    private TableColumn<Commande, String>    price;
     @FXML
     private TableColumn                      actions;
     private CommandeServices                 cs;
@@ -69,16 +63,32 @@ public class OrdersForAdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cs = new CommandeServices();
-        client.setCellValueFactory(new PropertyValueFactory<>("UserId"));
-        tel.setCellValueFactory(new PropertyValueFactory<>("Tel"));
         date.setCellValueFactory(new PropertyValueFactory<>("Date"));
         deliveredAt.setCellValueFactory(new PropertyValueFactory<>("DateLivraison"));
         status.setCellValueFactory(new PropertyValueFactory<>("Status"));
-        address.setCellValueFactory(new PropertyValueFactory<>("Addresse"));
-        price.setCellValueFactory(new PropertyValueFactory<>("PrixTotal"));
+        
 
         Callback<TableColumn<Commande, String>, TableCell<Commande, String>> cellFactory;
+        Callback<TableColumn<Commande, String>, TableCell<Commande, String>> cellFactory1;
+        cellFactory1 = (TableColumn<Commande, String> param) -> {
+                           final TableCell<Commande, String> cell = new TableCell<Commande, String>() {
+                               @Override
+                               public void updateItem(String Item, boolean empty) {
+                                   super.updateItem(Item, empty);
 
+                                   if (empty) {
+                                       setGraphic(null);
+                                       setText(null);
+                                   } else {
+                                       Commande p = getTableView().getItems().get(getIndex());
+
+                                       setText(p.getPrixTotal().toString()+" TND");
+                                   }
+                               }
+                           };
+
+                           return cell;
+                       };
         cellFactory = (TableColumn<Commande, String> param) -> {
                           final TableCell<Commande, String> cell = new TableCell<Commande, String>() {
                               @Override
@@ -111,13 +121,15 @@ public class OrdersForAdminController implements Initializable {
                                               ct.setDateLivraison(new Timestamp(System.currentTimeMillis()));
                                               ct.setStatus("Delivered");
                                               cs.update(ct);
-                                              
-                                              HBox       h = (HBox) orderstable.getParent().getParent().lookup("#content");
+
+                                              HBox       h = (HBox) orderstable.getParent()
+                                                                               .getParent()
+                                                                               .lookup("#content");
                                               AnchorPane p;
 
                                               try {
-                                                  p = FXMLLoader.load(
-                                                      getClass().getResource("/Views/OrdersForAdmin.fxml"));
+                                                  p =
+                                                  FXMLLoader.load(getClass().getResource("/Views/OrdersForAdmin.fxml"));
                                                   h.getChildren().setAll(p);
                                               } catch (IOException ex) {
                                                   Logger.getLogger(OrdersForAdminController.class.getName())
@@ -127,10 +139,9 @@ public class OrdersForAdminController implements Initializable {
                                       detailsButton.setOnAction(
                                           event -> {
                                               Commande   ct     = getTableView().getItems().get(getIndex());
-                                              FXMLLoader loader = new FXMLLoader(
-                                                                      getClass().getResource(
-                                                                          "/Views/OrderDetails.fxml"));
-                                              AnchorPane root = null;
+                                              FXMLLoader loader =
+                                                  new FXMLLoader(getClass().getResource("/Views/OrderDetails.fxml"));
+                                              AnchorPane root   = null;
 
                                               try {
                                                   root = loader.load();
@@ -158,6 +169,7 @@ public class OrdersForAdminController implements Initializable {
                           return cell;
                       };
         actions.setCellFactory(cellFactory);
+        price.setCellFactory(cellFactory1);
         orderstable.setItems(cs.findAll());
     }
 }

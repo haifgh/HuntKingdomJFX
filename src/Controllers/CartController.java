@@ -127,7 +127,7 @@ public class CartController implements Initializable {
                                           Produit prod = ps.getP(p.getValue().getKey());
                                           Integer t    = prod.getPrix() * p.getValue().getValue();
 
-                                          return new SimpleStringProperty(t.toString());
+                                          return new SimpleStringProperty(t.toString()+" TND");
                                       }
                                   });
 
@@ -146,19 +146,58 @@ public class CartController implements Initializable {
                                   } else {
 
                                       // action button here
-                                      final JFXButton rmButton = new JFXButton("remove");
-
+                                      final JFXButton rmButton = new JFXButton("x");
+                                      final JFXButton addButton = new JFXButton("+");
+                                      final JFXButton minusButton = new JFXButton("-");
                                       rmButton.setStyle("-fx-text-fill:white;-fx-background-color:red;");
+                                      addButton.setStyle("-fx-text-fill:white;-fx-background-color:green;");
+                                      minusButton.setStyle("-fx-text-fill:white;-fx-background-color:orange;");
+                                      rmButton.getStyleClass().add("custom-buttonn");
+                                      rmButton.getStyleClass().add(".jfx-button");
+                                      addButton.getStyleClass().add("custom-buttonn");
+                                      addButton.getStyleClass().add(".jfx-button");
+                                      minusButton.getStyleClass().add("custom-buttonn");
+                                      minusButton.getStyleClass().add(".jfx-button");
                                       rmButton.setOnAction(
                                           event -> {
                                               pas.removeItem(getTableView().getItems().get(getIndex()).getKey());
-                                              main = (HBox) cart.getParent().lookup("#main");
+                                              main = (HBox) cart.getParent().getScene().lookup("#content");
 
                                               AnchorPane p;
 
                                               try {
-                                                  p =
-                                                  FXMLLoader.load(getClass().getResource("/pidevjfx/GUI/Cart.fxml"));
+                                                  p = FXMLLoader.load(getClass().getResource("/Views/Cart.fxml"));
+                                                  main.getChildren().setAll(p);
+                                              } catch (IOException ex) {
+                                                  Logger.getLogger(CartController.class.getName())
+                                                        .log(Level.SEVERE, null, ex);
+                                              }
+                                          });
+                                       minusButton.setOnAction(
+                                          event -> {
+                                             UserSession.getInstance().addToPanier(getTableView().getItems().get(getIndex()).getKey(), -1);
+                                              main = (HBox) cart.getParent().getScene().lookup("#content");
+
+                                              AnchorPane p;
+
+                                              try {
+                                                  p = FXMLLoader.load(getClass().getResource("/Views/Cart.fxml"));
+                                                  main.getChildren().setAll(p);
+                                              } catch (IOException ex) {
+                                                  Logger.getLogger(CartController.class.getName())
+                                                        .log(Level.SEVERE, null, ex);
+                                              }
+                                          });
+                                      addButton.setOnAction(
+                                          event -> {
+                                             
+                                              UserSession.getInstance().addToPanier(getTableView().getItems().get(getIndex()).getKey(), 1);
+                                              main = (HBox) cart.getParent().getScene().lookup("#content");
+
+                                              AnchorPane p;
+
+                                              try {
+                                                  p = FXMLLoader.load(getClass().getResource("/Views/Cart.fxml"));
                                                   main.getChildren().setAll(p);
                                               } catch (IOException ex) {
                                                   Logger.getLogger(CartController.class.getName())
@@ -166,7 +205,7 @@ public class CartController implements Initializable {
                                               }
                                           });
 
-                                      HBox pane = new HBox(rmButton);
+                                      HBox pane = new HBox(addButton,minusButton,rmButton);
 
                                       setGraphic(pane);
                                   }

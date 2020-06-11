@@ -21,3 +21,13 @@
     -fx-padding: 10 16 10 16;
     -fx-font-size: 20;
 }
+.custom-buttonn{
+    -fx-background-color:#27a816;
+    -fx-font-weight: BOLD;
+    -fx-font-size: 20;
+    -fx-text-fill:#ffffff;
+    -fx-padding:  0.5em 1em;
+    -fx-border-insets: 0.5em 0.5em;
+    -fx-background-insets:0.5em 0.5em;
+}
+
