@@ -33,19 +33,24 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import Interfaces.IserviceProduct;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Dialog;
+import javafx.scene.image.ImageView;
 
 /**
  * FXML Controller class
  *
  * @author Etudiant
  */
-public class ProductADDInterfaceController implements Initializable, IserviceProduct<ActionEvent> {
+public class ProductADDInterfaceController implements Initializable {
 
     @FXML
     private JFXTextField nom_tf;
@@ -63,6 +68,7 @@ public class ProductADDInterfaceController implements Initializable, IservicePro
     private Scene scene;
     private ResultSet rs;
     private Connexion conn;
+     private ImageView img;
     @FXML
     private JFXTextField pic_tf;
     @FXML
@@ -73,7 +79,7 @@ public class ProductADDInterfaceController implements Initializable, IservicePro
     private JFXButton cancel_btn;
      @FXML
     private ChoiceBox cbox;
-
+   File selectedFile ;
     /**
      * Initializes the controller class.
      */
@@ -83,12 +89,13 @@ public class ProductADDInterfaceController implements Initializable, IservicePro
         loadCat();
     }
 
-    @Override
+    
     @FXML
     public void AddProduct(ActionEvent t) throws SQLException {
         try {
             conn = Connexion.getInstance();
             String url2 = pic_tf.getText().replaceAll("//", "////");
+           //String url2=selectedFile.getName();
             String sql = "insert into produit (categorie_id,nom,qte,prix,description,photo) values (?,?,?,?,?,?)";
             
             //Integer.valueOf(Idm_tf.getText());
@@ -98,7 +105,8 @@ public class ProductADDInterfaceController implements Initializable, IservicePro
             //int prix_promo = Integer.valueOf(promo_tf.getText());
             String description = description_tf.getText();
             String cat = cbox.getValue().toString();
-            String url = pic_tf.getText();
+           String url = pic_tf.getText();
+          // String  url=selectedFile.getName();
             Categorie c = new Categorie();
             CategorieServices cs = new CategorieServices();
             c=cs.findByName(cat);
@@ -141,9 +149,12 @@ public class ProductADDInterfaceController implements Initializable, IservicePro
                    // Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("INFORMATION DIALOG");
                     alert.setHeaderText(null);
+                    
                     alert.setContentText("Product INSERTED");
                     alert.showAndWait();
-                    
+                   
+                 
+               
                 }
                  System.out.println( cbox.getValue().toString());
             } catch (SQLException ex) {
@@ -158,22 +169,9 @@ public class ProductADDInterfaceController implements Initializable, IservicePro
         }
     }
 
-    @Override
-    public boolean DeleteProduct(ActionEvent t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
 
-    @Override
-    public boolean UpdateProduct(ActionEvent t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void InitProduct() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
+    
     public void search(ActionEvent t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -189,14 +187,61 @@ public class ProductADDInterfaceController implements Initializable, IservicePro
                 // new ExtensionFilter("Text Files","*.txt"),
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
         //new ExtensionFilter("All Files","*."));
+       
 
         File file = filechooser.showOpenDialog(Browse_btn.getScene().getWindow());
         if (file != null) {
 
-            pic_tf.setText(file.getAbsolutePath());
-            Image img = new Image(file.toURI().toString());
+            try {
+                pic_tf.setText(file.getAbsolutePath());
+                Image img = new Image(file.toURI().toString());
+                Path source = Paths.get(file.getAbsoluteFile().toURI());
+                Path destination = Paths.get("C://wamp/www/pidev-merge/web/images/"+file.getAbsoluteFile().getName());
+                Files.copy(source, destination,StandardCopyOption.REPLACE_EXISTING);
+               
+            } catch (IOException ex) {
+                Logger.getLogger(ProductADDInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+ 
+         /* FileChooser filechooser = new FileChooser();
+        filechooser.setTitle("Open fil Dialog");
+        filechooser.getExtensionFilters().addAll(
+        new FileChooser.ExtensionFilter("images", "*.bmp", "*.png", "*.jpg", "*.gif"));
+        filechooser.setInitialDirectory(new File("C:\\wamp\\www\\pidev-merge\\web\\images"));
+        selectedFile = filechooser.showOpenDialog(null);
+    
+try {
+               Image imge = new Image(selectedFile.toURI().toURL().toString());
+               System.out.println(selectedFile.toURI().toURL().toString());
+                this.img.setImage(imge);
+           } catch (MalformedURLException ex) {
+               Logger.getLogger(ProductADDInterfaceController
+                       .class.getName()).log(Level.SEVERE, null, ex);
+           }*/
+      
+    
     }
+    /* private void choiceFileAction(ActionEvent event) throws IOException {
+         FileChooser filechooser = new FileChooser();
+        filechooser.setTitle("Open fil Dialog");
+        filechooser.getExtensionFilters().addAll(
+        new FileChooser.ExtensionFilter("images", "*.bmp", "*.png", "*.jpg", "*.gif"));
+        filechooser.setInitialDirectory(new File("C:\\wamp\\www\\pidev"));
+        selectedFile = filechooser.showOpenDialog(null);
+    
+try {
+               Image imge = new Image(selectedFile.toURI().toURL().toString());
+               System.out.println(selectedFile.toURI().toURL().toString());
+                this.img.setImage(imge);
+           } catch (MalformedURLException ex) {
+               Logger.getLogger(ProductADDInterfaceController
+                       .class.getName()).log(Level.SEVERE, null, ex);
+           }
+      
+    
+        
+    }*/
 
     @FXML
    private void loadCat() {

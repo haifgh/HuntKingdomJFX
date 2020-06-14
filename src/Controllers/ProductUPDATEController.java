@@ -16,7 +16,6 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.DatePicker;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
@@ -33,7 +32,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import Interfaces.IserviceProduct;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -44,7 +42,7 @@ import javafx.scene.control.ChoiceBox;
  *
  * @author Etudiant
  */
-public class ProductUPDATEController implements Initializable, IserviceProduct<ActionEvent> {
+public class ProductUPDATEController implements Initializable {
     @FXML
     private JFXButton Browse_btn;
     @FXML
@@ -87,16 +85,9 @@ public class ProductUPDATEController implements Initializable, IserviceProduct<A
         // TODO
     }    
 
-    @Override
-    @FXML
-    public void AddProduct(ActionEvent t) throws SQLException {
-       
-    }
 
-    @Override
-    public boolean DeleteProduct(ActionEvent t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
+
     public void TranslatingData(Produit m) {
         selectedS = m;
        // id_tf.setText(String.valueOf(selectedS.getId()));
@@ -126,7 +117,7 @@ public class ProductUPDATEController implements Initializable, IserviceProduct<A
        
     } 
     
-    @Override
+    
     public boolean UpdateProduct(ActionEvent t) throws SQLException {
            conn = Connexion.getInstance();
         try {
@@ -170,15 +161,7 @@ public class ProductUPDATEController implements Initializable, IserviceProduct<A
     }
     
 
-    @Override
-    public void InitProduct() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    @Override
-    public void search(ActionEvent t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
               
     
     
@@ -208,7 +191,7 @@ public class ProductUPDATEController implements Initializable, IserviceProduct<A
     
      private void CloseStageAutomaticly(Event e) throws IOException{
         final Node source = (Node) e.getSource();
-    final Stage stage = (Stage) source.getScene().getWindow();
+        final Stage stage = (Stage) source.getScene().getWindow();
     stage.close();
     }
      

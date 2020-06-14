@@ -45,14 +45,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import Interfaces.IserviceProduct;
 
 /**
  * FXML Controller class
  *
  * @author Etudiant
  */
-public class ProductInterfaceController implements Initializable, IserviceProduct<ActionEvent> {
+public class ProductInterfaceController implements Initializable {
 
     @FXML
     private TableView<Produit> Table_produit;
@@ -106,7 +105,7 @@ public class ProductInterfaceController implements Initializable, IserviceProduc
         }
     }
 
-    @Override
+  
     @FXML
     public void AddProduct(ActionEvent t) throws SQLException {
 
@@ -126,7 +125,7 @@ public class ProductInterfaceController implements Initializable, IserviceProduc
 
     }
 
-    @Override
+  
     @FXML
     public boolean DeleteProduct(ActionEvent t) throws SQLException {
   conn = Connexion.getInstance();
@@ -152,7 +151,7 @@ public class ProductInterfaceController implements Initializable, IserviceProduc
     
     }
 
-    @Override
+  
     @FXML
     public boolean UpdateProduct(ActionEvent t) throws SQLException {
         try {
@@ -175,7 +174,7 @@ public class ProductInterfaceController implements Initializable, IserviceProduc
             return true;
     }
 
-    @Override
+   
     public void InitProduct() throws SQLException {
         conn = Connexion.getInstance();
 
@@ -204,7 +203,7 @@ public class ProductInterfaceController implements Initializable, IserviceProduc
         Table_produit.setItems(data);
     }
 
-    @Override
+   
     @FXML
     public void search(ActionEvent t) {
                 ObservableList data = Table_produit.getItems();
@@ -259,7 +258,7 @@ public class ProductInterfaceController implements Initializable, IserviceProduc
 
                 Image image = new Image(localUrl);
                 ImageView.setImage(image);
-
+         
             }
         } catch (SQLException ex) {
             System.err.println("Error" + ex);

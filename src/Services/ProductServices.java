@@ -126,7 +126,7 @@ public class ProductServices {
          List<Produit> ls =new ArrayList<Produit>();
         try {
            
-            PreparedStatement pt = conn.prepareStatement("select * from Produit where categorie_id=?");
+            PreparedStatement pt = conn.prepareStatement("select * from Produit where categorie_id=? and qte>0 ");
             pt.setInt(1, id);
             ResultSet rs = pt.executeQuery();
             while(rs.next()){
