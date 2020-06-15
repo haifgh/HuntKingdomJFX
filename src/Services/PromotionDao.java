@@ -69,7 +69,7 @@ public class PromotionDao implements IServicePromoDao {
        
         List<Promotion> lsPromo = new ArrayList<Promotion>();
         lsPromo.clear();
-        query = "SELECT * FROM promotion ORDER BY id_promo ";//LIMIT 5 pagination
+        query = "SELECT * FROM promotion ORDER BY id ";//LIMIT 5 pagination
         try {
 
             stmt = con.createStatement();
@@ -78,20 +78,23 @@ public class PromotionDao implements IServicePromoDao {
            
              
             Promotion p=new Promotion();
-            p.setId(RS.getInt("id_promo"));
+            p.setId(RS.getInt("id"));
             p.setNom(RS.getString("nom"));
             
             Timestamp ts1=RS.getTimestamp("date_debut");
-            Calendar calendar=Calendar.getInstance(Locale.getDefault());
-            calendar.setTimeInMillis(ts1.getTime());
-            String dateString=new SimpleDateFormat("HH:mm:ss dd-MM-yyyy").format(calendar.getTime());
+            String dateString=new SimpleDateFormat("dd-MM-yyyy").format(ts1);
             p.setDate_debut(dateString);
             
+           // Timestamp ts2=RS.getTimestamp("date_fin");
+           // Calendar calendar2=Calendar.getInstance(Locale.getDefault());
+            //calendar.setTimeInMillis(ts2.getTime());
+            
             Timestamp ts2=RS.getTimestamp("date_fin");
-            Calendar calendar2=Calendar.getInstance(Locale.getDefault());
-            calendar.setTimeInMillis(ts2.getTime());
-            String dateString2=new SimpleDateFormat("HH:mm:ss dd-MM-yyyy").format(calendar2.getTime());
+            String dateString2=new SimpleDateFormat("dd-MM-yyyy").format(ts2);
+            
+            
             p.setDate_fin(dateString2);
+            
             p.setTaux_reduction(RS.getInt("taux_reduction"));
             lsPromo.add(p);
 
@@ -107,8 +110,8 @@ public class PromotionDao implements IServicePromoDao {
             if (stmt != null) {
                 try {
                     stmt.close();
-                } catch (SQLException e) {
-                    System.out.println(e.getMessage());
+                } catch (SQLException ex) {
+                    Logger.getLogger(PromotionDao.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -123,29 +126,35 @@ return lsPromo;
             ps = con.prepareStatement(query2);
             ps.setInt(1, id);
             ps.executeUpdate();
-            query="delete from promotion where id_promo=? ";
+            query="delete from promotion where id=? ";
             ps = con.prepareStatement(query);
             ps.setInt(1, id);
             ps.executeUpdate();
             System.out.println("Promotion and dependencies deleted !!");
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            Logger.getLogger(PromotionDao.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
     
    public Promotion returnPromo(int id_promo){
          Promotion p=new Promotion();
-        query = "SELECT * FROM promotion WHERE id_promo=" + id_promo ;
+        query = "SELECT * FROM promotion WHERE id=" + id_promo ;
         try {
             stmt = con.createStatement();
             RS = stmt.executeQuery(query);
             RS.last();//RS.first();
             int nbrRow = RS.getRow();
             if (nbrRow != 0 ) {
-                p.setId(RS.getInt("id_promo"));
-                        p.setNom(RS.getString("nom"));
-                        p.setDate_debut(RS.getTimestamp("date_debut").toString());
-                        p.setDate_fin(RS.getTimestamp("date_fin").toString());
+                p.setId(RS.getInt("id"));
+                         p.setNom(RS.getString("nom"));
+                         Timestamp ts2=RS.getTimestamp("date_debut");
+                         String dateString2=new SimpleDateFormat("dd-MM-yyyy").format(ts2);
+                         p.setDate_debut(dateString2);
+                     //   p.setDate_debut(RS.getTimestamp("date_debut").toString());
+                        Timestamp ts=RS.getTimestamp("date_fin");
+                        String dateString=new SimpleDateFormat("dd-MM-yyyy").format(ts);
+                        p.setDate_fin(dateString);
+                      //  p.setDate_fin(RS.getTimestamp("date_fin").toString());
                         p.setTaux_reduction(RS.getInt("taux_reduction"));
                // System.out.println(p.toString());
                
@@ -155,7 +164,7 @@ return lsPromo;
             }
 
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            Logger.getLogger(PromotionDao.class.getName()).log(Level.SEVERE, null, ex);
         }finally {
             if (stmt != null) {
                 try {
@@ -172,12 +181,12 @@ return lsPromo;
    }
 
 
-    public void updatePromo( String nom, int tx_red,String d1,String d2) {
+    public void updatePromo(int id,String nom, int tx_red,String d1,String d2) {
         Timestamp ts = Timestamp.valueOf(d1);
        Timestamp ts2 = Timestamp.valueOf(d2);
-        int id=InfoPromo(nom).getId();
+        //int id=InfoPromo(nom).getId();
         try {
-            query = "update promotion set nom =?,date_debut=?,date_fin=?, taux_reduction=? where id_promo=?";
+            query = "update promotion set nom =?,date_debut=?,date_fin=?, taux_reduction=? where id=?";
             ps = con.prepareStatement(query);
            // ps.executeQuery();
             ps.setString(1, nom);
@@ -186,9 +195,9 @@ return lsPromo;
             ps.setInt(4, tx_red);
             ps.setInt(5, id);
             ps.executeUpdate();
-            //System.out.println("Promotion updated ");
+            System.out.println("Promotion updated ");
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+           Logger.getLogger(PromotionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -202,7 +211,7 @@ return lsPromo;
             RS.last();//RS.first();
             int nbrRow = RS.getRow();
             if (nbrRow != 0 ) {
-                p.setId(RS.getInt("id_promo"));
+                p.setId(RS.getInt("id"));
                         p.setNom(RS.getString("nom"));
                         p.setDate_debut(RS.getTimestamp("date_debut").toString());
                         p.setDate_fin(RS.getTimestamp("date_fin").toString());
@@ -215,13 +224,13 @@ return lsPromo;
             }
 
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+           Logger.getLogger(PromotionDao.class.getName()).log(Level.SEVERE, null, ex);
         }finally {
             if (stmt != null) {
                 try {
                     stmt.close();
-                } catch (SQLException e) {
-                    System.out.println(e.getMessage());
+                } catch (SQLException ex) {
+                    Logger.getLogger(PromotionDao.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -239,10 +248,16 @@ return p;
             RS.last();//RS.first();
             int nbrRow = RS.getRow();
             if (nbrRow != 0 ) {
-                p.setId(RS.getInt("id_promo"));
+                p.setId(RS.getInt("id"));
                         p.setNom(RS.getString("nom"));
-                        p.setDate_debut(RS.getTimestamp("date_debut").toString());
-                        p.setDate_fin(RS.getTimestamp("date_fin").toString());
+                        Timestamp ts1=RS.getTimestamp("date_debut");
+                        String dateString=new SimpleDateFormat("dd-MM-yyyy").format(ts1);
+                        p.setDate_debut(dateString);
+                        //p.setDate_debut(RS.getTimestamp("date_debut").toString());
+                        Timestamp ts2=RS.getTimestamp("date_fin");
+                        String dateString2=new SimpleDateFormat("dd-MM-yyyy").format(ts2);
+                        p.setDate_fin(dateString2);
+                        //p.setDate_fin(RS.getTimestamp("date_fin").toString());
                         p.setTaux_reduction(RS.getInt("taux_reduction"));
                 System.out.println(p.toString());
                 test=true;
@@ -252,13 +267,13 @@ return p;
             }
 
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            Logger.getLogger(PromotionDao.class.getName()).log(Level.SEVERE, null, ex);
         }finally {
             if (stmt != null) {
                 try {
                     stmt.close();
-                } catch (SQLException e) {
-                    System.out.println(e.getMessage());
+                } catch (SQLException ex) {
+                   Logger.getLogger(PromotionDao.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -275,26 +290,32 @@ return test;
            stmt = con.prepareStatement(query);
            RS = stmt.executeQuery(query);
             while (RS.next()) {
-                 lstpr.add(new Promotion(RS.getInt("id_promo")
-                         ,RS.getString("nom")
-                         ,RS.getTimestamp("date_debut").toString()
-                         ,RS.getTimestamp("date_fin").toString()
-                         ,RS.getInt("taux_reduction")));
-                         
+                Promotion p=new Promotion();
+                p.setId(RS.getInt("id"));
+                p.setNom(RS.getString("nom"));
+                Timestamp ts1=RS.getTimestamp("date_debut");
+                String dateString=new SimpleDateFormat("dd-MM-yyyy").format(ts1);
+                p.setDate_debut(dateString);
+                Timestamp ts2=RS.getTimestamp("date_fin");
+                String dateString2=new SimpleDateFormat("dd-MM-yyyy").format(ts2);
+                p.setDate_fin(dateString2);
+                p.setTaux_reduction(RS.getInt("taux_reduction"));
+                lstpr.add(p);
+                
               
             }
-            lstpr.stream().forEach((p) -> {
+           // lstpr.stream().forEach((p) -> {
               //  System.out.println(p.toString());
-            });
+            //});
             
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());;
+           Logger.getLogger(PromotionDao.class.getName()).log(Level.SEVERE, null, ex);
         }finally {
             if (stmt != null) {
                 try {
                     stmt.close();
-                } catch (SQLException e) {
-                    System.out.println(e.getMessage());
+                } catch (SQLException ex) {
+                     Logger.getLogger(PromotionDao.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }

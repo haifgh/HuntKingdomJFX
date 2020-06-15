@@ -31,6 +31,14 @@
             <Insets bottom="5.0" />
          </VBox.margin>
       </JFXButton>
+      <JFXButton buttonType="RAISED" onAction="#goToGuide" prefWidth="300.0" style="-fx-background-color: #013220;" text="GUIDES" textFill="#b5b4b4">
+         <font>
+            <Font name="Monospaced Bold" size="24.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin>
+      </JFXButton>
    </children>
    <padding>
       <Insets top="20.0" />

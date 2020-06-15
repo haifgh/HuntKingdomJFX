@@ -13,9 +13,9 @@ public class SMSsender {
    
    
     public static final String ACCOUNT_SID =
-            "ACbb57d76e13128e0ac17a86e9ad95486c";
+            "ACab22550597f97d00344ffdbd18862439";
     public static final String AUTH_TOKEN =
-            "7e9f9b26c081410bf53bf446e2acb8a0";
+            "c0fea281eb577a1ffe46cb28e1795c02";
 
     
 }

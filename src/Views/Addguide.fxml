@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="rootpane" prefHeight="561.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AddguideController">
+   <children>
+      <Label layoutX="71.0" layoutY="144.0" style="-fx-background-color: white;" text="Titre">
+         <font>
+            <Font name="Segoe UI Black" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="56.0" layoutY="187.0" style="-fx-background-color: white;" text="Categorie">
+         <font>
+            <Font name="Segoe UI Black" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="44.0" layoutY="234.0" style="-fx-background-color: white;" text="Description">
+         <font>
+            <Font name="Segoe UI Black" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="71.0" layoutY="297.0" prefHeight="24.0" prefWidth="43.0" style="-fx-background-color: white;" text="Lien">
+         <font>
+            <Font name="Segoe UI Black" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="71.0" layoutY="349.0" style="-fx-background-color: white;" text="Photo">
+         <font>
+            <Font name="Segoe UI Black" size="17.0" />
+         </font>
+      </Label>
+      <Button layoutX="248.0" layoutY="415.0" mnemonicParsing="false" onAction="#SaveGuide" prefHeight="37.0" prefWidth="121.0" style="-fx-background-color: pink; -fx-font-family: round;" text="Add Guide" />
+      <Button layoutX="508.0" layoutY="487.0" mnemonicParsing="false" onAction="#Backtolist" prefHeight="37.0" prefWidth="135.0" style="-fx-background-color: pink; -fx-font-family: Courier New;" text="Back Guides list" />
+      <Button layoutX="153.0" layoutY="348.0" mnemonicParsing="false" onAction="#choiceFileAction" prefHeight="17.0" prefWidth="155.0" text="chose a file">
+         <font>
+            <Font name="SansSerif Regular" size="17.0" />
+         </font></Button>
+      <TextField fx:id="titre" layoutX="156.0" layoutY="144.0" />
+      <TextField fx:id="categorie" layoutX="156.0" layoutY="187.0" />
+      <TextArea fx:id="description" layoutX="153.0" layoutY="227.0" prefHeight="36.0" prefWidth="170.0" />
+      <TextArea fx:id="lien" layoutX="153.0" layoutY="288.0" prefHeight="43.0" prefWidth="206.0" />
+      <ImageView fx:id="img" fitHeight="16.0" fitWidth="45.0" layoutX="161.0" layoutY="293.0" pickOnBounds="true" preserveRatio="true" />
+      <Pane layoutX="-4.0" prefHeight="102.0" prefWidth="698.0" style="-fx-background-color: #3946;">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="196.0" layoutY="34.0" prefHeight="43.0" prefWidth="331.0" style="-fx-background-color: gray;" text="Add new Guide" textAlignment="CENTER" textFill="#b29f9b" underline="true">
+               <font>
+                  <Font name="Pristina" size="37.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+   <effect>
+      <Blend>
+         <topInput>
+            <InnerShadow />
+         </topInput>
+      </Blend>
+   </effect>
+</AnchorPane>

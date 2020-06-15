@@ -1,0 +1,25 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 6 juin 2020, 01:12:48
+    Author     : Mariem
+*/
+.list-view .list-cell:even {
+-fx-background-color: transparent;
+-fx-text-fill: #27a816;
+font-size: xx-large;
+ font-weight: bold;
+ -fx-alignment: center;
+}
+.list-view .list-cell:odd {
+-fx-background-color: #013220;
+-fx-text-fill: #ffffff;
+font-size: xx-large;
+font-weight: bold;
+-fx-alignment: center;
+}
+
+

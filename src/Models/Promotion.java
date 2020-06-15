@@ -90,8 +90,7 @@ public class Promotion {
 
     @Override
     public String toString() {
-        return "Promotion{" + "id=" + id + ", nom=" + nom + ", date_debut=" + date_debut + ", date_fin=" + date_fin + ", taux_reduction=" + taux_reduction +  '}';
-    }
+        return  nom.toUpperCase() + taux_reduction+"%" ;}
 
    
     

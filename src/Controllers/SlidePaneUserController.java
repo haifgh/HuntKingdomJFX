@@ -54,7 +54,13 @@ public class SlidePaneUserController implements Initializable {
 
         content.getChildren().setAll(p);
     }
+@FXML
+    private void goToGuide(ActionEvent event) throws IOException {
+        Parent p       = FXMLLoader.load(getClass().getResource("/Views/Showguideuser.fxml"));
+        HBox   content = (HBox) userPane.getParent().getParent().getParent().getParent().getScene().lookup("#content");
 
+        content.getChildren().setAll(p);
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
