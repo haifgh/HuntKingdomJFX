@@ -39,7 +39,7 @@ public class UserServices implements IUserServices {
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
-                        rs.getBoolean(6),
+                        rs.getInt(6),
                         rs.getString(7),
                         rs.getString(8),
                         (Timestamp) rs.getObject(9),
@@ -123,7 +123,7 @@ public class UserServices implements IUserServices {
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
-                        rs.getBoolean(6),
+                        rs.getInt(6),
                         rs.getString(7),
                         rs.getString(8),
                         (Timestamp) rs.getObject(9),
@@ -153,7 +153,7 @@ public class UserServices implements IUserServices {
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
-                        rs.getBoolean(6),
+                        rs.getInt(6),
                         rs.getString(7),
                         rs.getString(8),
                         (Timestamp) rs.getObject(9),
@@ -198,12 +198,16 @@ public class UserServices implements IUserServices {
             
   }
   
-   public void updateImage(String image , int id) throws MessagingException{
+   public void updateImage(String username,String email,int tel,String adresse,String image, int id) throws MessagingException{
          try {
-           PreparedStatement   pt = conn.prepareStatement("update fos_user set photo=? where id=?");
+           PreparedStatement   pt = conn.prepareStatement("update fos_user set username=?,email=?,tel=?,adresse=?, photo=? where id=?");
              
-           pt.setString(1,image);
-           pt.setInt(2, id);
+           pt.setString(1,username);
+           pt.setString(2,email);
+           pt.setInt(3, tel);
+           pt.setString(4,adresse);
+           pt.setString(5,image);
+           pt.setInt(6,id);
            pt.executeUpdate();
           
          } catch (SQLException ex) {

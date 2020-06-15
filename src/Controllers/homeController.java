@@ -30,6 +30,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,6 +39,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
@@ -166,6 +168,18 @@ public class homeController implements Initializable {
     private Pane barimg;
     @FXML
     private Pane barname;
+    @FXML
+    private VBox VBUP;
+    @FXML
+    private JFXTextField susername;
+    @FXML
+    private JFXTextField sphone;
+    @FXML
+    private JFXTextField sadd;
+    @FXML
+    private JFXTextField smail;
+    @FXML
+    private Button browse;
   
     /**
      * Initializes the controller class.
@@ -173,7 +187,7 @@ public class homeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        setbar();
+         setbar();
            UserServices su = new UserServices();
          ReadPost();  
          List<User> ls= new ArrayList<>();
@@ -197,7 +211,7 @@ public class homeController implements Initializable {
          circle.setCenterX(40.0f); 
          circle.setCenterY(10.0f); 
          circle.setRadius(15.0f); 
-         Image userf = new Image("http://localhost/pidev/web/images//" + user.getPhoto());
+         Image userf = new Image("http://localhost/pidev/web/images/"+user.getPhoto());
          circle.setFill(new ImagePattern(userf));
              h1.getChildren().add(circle);
              h1.getChildren().add(fol);
@@ -241,7 +255,7 @@ public class homeController implements Initializable {
          circle.setCenterX(50.0f); 
          circle.setCenterY(15.0f); 
          circle.setRadius(20.0f); 
-         Image user = new Image("http://localhost/pidev/web/images//" + u.getPhoto());
+         Image user = new Image("http://localhost/pidev/web/images/"+u.getPhoto());
          circle.setFill(new ImagePattern(user));
         Circle circlet = new Circle();
          circlet.setCenterX(150.0f); 
@@ -261,9 +275,16 @@ public class homeController implements Initializable {
     @FXML
     private void CreatePost(ActionEvent event) {
         ServicePost sp = new ServicePost();
-        sp.ajouterPost(new Post(testpost.getText()));
+        if (testpost.getText().length() == 0){
+                       Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                     alert.setTitle("INFORMATION DIALOG");
+                    alert.setHeaderText(null);  
+                    alert.setContentText("Please fill the field");
+                    alert.showAndWait(); 
+        }
+        else {sp.ajouterPost(new Post(testpost.getText()));
          VB.getChildren().clear();
-        ReadPost();
+        ReadPost();}
         
         }
     private void DeletePost(int id ) {
@@ -276,15 +297,39 @@ public class homeController implements Initializable {
         
         }
     
-     private void UpdatePost(int id ) {
+  /*  public void UpdateA (int id) throws IOException  {
+    ServicePost sp = new ServicePost();
+    String m = contenu.getText();
+    sp.modifierpost(id, m);
+    VB.getChildren().clear();
+     VBB.getChildren().clear();
+        ReadPost();
+     FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/homepage.fxml"));
+     homeController cont = loader.getController();
+     cont.ReadPost();
+        System.out.println("ok");
+    }*/
+    
+     private void UpdatePost(int id )   {  
+    
+      
         ServicePost sp = new ServicePost();
         String m = JOptionPane.showInputDialog("contenu");
-        sp.modifierpost(id, m);
+        if (m.length()== 0){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                     alert.setTitle("INFORMATION DIALOG");
+                    alert.setHeaderText(null);  
+                    alert.setContentText("Please fill the field");
+                    alert.showAndWait(); 
+        }else
+        {sp.modifierpost(id, m);}
         VB.getChildren().clear();
         ReadPost();
+           
+        
         
         }
-         private void ReadPost()
+         public void ReadPost()
         {
               ServicePost sp = new ServicePost();
               ServiceJaime st = new ServiceJaime();
@@ -303,6 +348,7 @@ public class homeController implements Initializable {
          HBox h3= new HBox();  
           VB.setSpacing(5);
           h1.setSpacing(2);
+           h3.setSpacing(3);
          ScrollPane sl = new ScrollPane ();
          sl.setVbarPolicy(ScrollBarPolicy.ALWAYS);
          sl.setHbarPolicy(ScrollBarPolicy.NEVER);
@@ -314,7 +360,7 @@ public class homeController implements Initializable {
          circle.setCenterX(50.0f); 
          circle.setCenterY(15.0f); 
          circle.setRadius(20.0f); 
-         Image userp = new Image("http://localhost/pidev/web/images//" + u.getPhoto());
+         Image userp = new Image("http://localhost/pidev/web/images/"+u.getPhoto());
          circle.setFill(new ImagePattern(userp));
          
          Text user = new Text(u.getUsername());
@@ -365,7 +411,10 @@ public class homeController implements Initializable {
          btnsupp.setStyle(stylebt);
          VB.getChildren().add(h1);
          btnsupp.setOnAction(event -> DeletePost(evv.getId()));
-         btnmod.setOnAction(event -> UpdatePost(evv.getId()));
+         btnmod.setOnAction(event -> {UpdatePost(evv.getId());
+          VB.getChildren().clear();
+           ReadPost();
+         });
          btnjaimep.setGraphic(likeimga);
          btnjaime.setGraphic(likeimg);
          if (lj.size()!=0){
@@ -479,33 +528,33 @@ public class homeController implements Initializable {
          u = su.findById(evv.getUser_id());
          lj = st.reloadjaime(UserSession.getUser().getId(),evv.getId());   
          VBox h1 = new VBox();
-         HBox h2 = new HBox();   
+         HBox h2 = new HBox();  
+          HBox h3 = new HBox();  
          ScrollPane sl = new ScrollPane ();
          sl.setVbarPolicy(ScrollBarPolicy.ALWAYS);
          sl.setHbarPolicy(ScrollBarPolicy.NEVER);
          sl.setContent(VBH);
          String stylep ="-fx-background-color:none;" ;          
-         sl.setStyle(stylep);
-        
-         panesl.getChildren().add(sl);
+         sl.setStyle(stylep); panesl.getChildren().add(sl);
          VBH.setSpacing(5);
          h1.setSpacing(2);
+         h1.setSpacing(3);
          Circle circle = new Circle();
          circle.setCenterX(50.0f); 
          circle.setCenterY(15.0f); 
          circle.setRadius(20.0f); 
-         Image userp = new Image("http://localhost/pidev/web/images//" + u.getPhoto());
+         Image userp = new Image("http://localhost/pidev/web/images/"+ u.getPhoto());
          circle.setFill(new ImagePattern(userp));
-         
-          Text user = new Text(u.getUsername());
+         Text user = new Text(u.getUsername());
          Text date = new Text(evv.getDateCreation());
          Text contenu = new Text(evv.getContenu());
          Button btnjaime = new Button();
          Button btnjaimep = new Button();
          Label nbjaime = new Label();
          nbjaime.setText(""+ st.nbrejaime(evv.getId()));
-        h1.getChildren().add(circle);
-         h1.getChildren().add(user); 
+         h3.getChildren().add(circle);
+         h3.getChildren().add(user);
+         h1.getChildren().add(h3);
          h1.getChildren().add(date);
          h1.getChildren().add(contenu);
          h2.getChildren().add(nbjaime);
@@ -546,30 +595,49 @@ public class homeController implements Initializable {
 
     @FXML
     private void searchUser() {
-        VBB.getChildren().clear();
+         if(searchbar.getText().length()==0){
+              Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                     alert.setTitle("INFORMATION DIALOG");
+                    alert.setHeaderText(null);  
+                    alert.setContentText("Please fill the field");
+                    alert.showAndWait(); 
+         } 
+         else{
+       VBB.getChildren().clear();
         HE.getChildren().clear();
         User u = new User();
         UserServices su = new UserServices();
         u = su.findByUsername(searchbar.getText());  
-       
+        if(u == null)
+        {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                     alert.setTitle("INFORMATION DIALOG");
+                    alert.setHeaderText(null);  
+                    alert.setContentText("user doesn't existe ... try again ");
+                    alert.showAndWait(); 
+        } 
+        else {
+            if(u.getId()== UserSession.getUser().getId()){
+                pnlprofile.toFront();
+                pnlprofile.setStyle("-fx-background-color : #F8F8FA");
+            }else
+            {
         UserD.setStyle("-fx-background-color : #F8F8FA");
         UserD.toFront();
         Circle circle = new Circle();
-         circle.setCenterX(50.0f); 
-         circle.setCenterY(15.0f); 
-         circle.setRadius(20.0f); 
-         Image userp = new Image("http://localhost/pidev/web/images//" + u.getPhoto());
+         circle.setCenterX(40.0f); 
+         circle.setCenterY(40.0f); 
+         circle.setRadius(40.0f); 
+         Image userp = new Image("http://localhost/pidev/web/images/"+u.getPhoto());
          circle.setFill(new ImagePattern(userp));
          Text userN = new Text(u.getUsername());
          Button btnfollow = new Button("follow");
          Button btnunfollow = new Button("unfollow");
          Button btnclaim = new Button("claim");
-        
          VBox h2 = new VBox();   
-          h2.getChildren().add(circle);
+         h2.getChildren().add(circle);
          h2.getChildren().add(userN);
-     
-          HBox ht = new HBox();
+         HBox ht = new HBox();
           StackPane ct= new StackPane ();
            
          ct.getChildren().add(ht); 
@@ -607,7 +675,7 @@ public class homeController implements Initializable {
          circlepost.setCenterX(50.0f); 
          circlepost.setCenterY(15.0f); 
          circlepost.setRadius(20.0f); 
-         Image userpost = new Image("http://localhost/pidev/web/images//" + u.getPhoto());
+         Image userpost = new Image("http://localhost/pidev/web/images/"+u.getPhoto());
          circlepost.setFill(new ImagePattern(userpost));
          Text user = new Text(u.getUsername());
          Text date = new Text(evv.getDateCreation());
@@ -677,8 +745,10 @@ public class homeController implements Initializable {
          }
       
           btnclaim.setOnAction(event -> singleDialogInformation(f));      
-         
+         }
+         }
 }
+    }
        public void singleDialogInformation(int recl) {
         JPanel pane = new JPanel();
         pane.setLayout(new GridLayout(0, 2, 2, 2));
@@ -696,17 +766,21 @@ public class homeController implements Initializable {
         int option = JOptionPane.showConfirmDialog(frame, pane, "Please fill all the fields", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
         if (option == JOptionPane.YES_OPTION) {
-
+            if(contenu.getText().length()==0 || objet.getText().length()==0)
+            {
+               
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                     alert.setTitle("INFORMATION DIALOG");
+                    alert.setHeaderText(null);  
+                    alert.setContentText("Please fill the field");
+                    alert.showAndWait(); 
+            }
+            }else {
            
-
-            try {
                ServiceReclamation sr = new ServiceReclamation();
                sr.ajouterreclamation(new Reclamation(contenu.getText(), objet.getText(), recl));
-            } catch (NumberFormatException nfe) {
-                nfe.printStackTrace();
+           
             }
-
-        }
          VBR.getChildren().clear();
          ReadClaims();
     }
@@ -726,7 +800,8 @@ public class homeController implements Initializable {
             HBox h3 = new HBox();
             HBox h4 = new HBox();
             VBR.setSpacing(5);
-            h1.setSpacing(2); 
+            h1.setSpacing(2);
+            h4.setSpacing(3);
          ScrollPane sl = new ScrollPane ();
          sl.setVbarPolicy(ScrollBarPolicy.ALWAYS);
          sl.setHbarPolicy(ScrollBarPolicy.NEVER);
@@ -744,7 +819,7 @@ public class homeController implements Initializable {
          circlepost.setCenterX(50.0f); 
          circlepost.setCenterY(15.0f); 
          circlepost.setRadius(20.0f); 
-         Image userpost = new Image("http://localhost/pidev/web/images/" + u.getPhoto());
+         Image userpost = new Image("http://localhost/pidev/web/images/"+u.getPhoto());
          circlepost.setFill(new ImagePattern(userpost));
          Button btnsupp = new Button();
          ImageView deleteimg = new ImageView(getClass().getResource("/icons/delete.png").toString());
@@ -789,50 +864,20 @@ public class homeController implements Initializable {
         }
         
     
-     private void UpdateR(int id ) {
-        ServiceReclamation sr = new ServiceReclamation();
-        JPanel pane = new JPanel();
-        pane.setLayout(new GridLayout(0, 2, 2, 2));
-
-        JTextField objet = new JTextField();
-        JTextField contenu = new JTextField();
-
-        pane.add(new JLabel("object of claim"));
-        pane.add(objet);
-
-        pane.add(new JLabel("body of claim"));
-        pane.add(contenu);
-        Component frame = null;
-
-        int option = JOptionPane.showConfirmDialog(frame, pane, "Please fill all the fields", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-
-        if (option == JOptionPane.YES_OPTION) {
-
-           
-
-            try {
-              
-               sr.modifierreclamation(id ,contenu.getText(), objet.getText());
-            } catch (NumberFormatException nfe) {
-                nfe.printStackTrace();
-            }
-        }
-        VBR.getChildren().clear();
-       ReadClaims();
-               }
-     private void UpdateU(String img ,int id ) {
+    
+     private void UpdateU(String username,String email,int tel,String adresse,String img, int id ) {
          UserServices su = new UserServices();
         try {
-            su.updateImage(img,id);
-        } catch (MessagingException ex) {
-           
-        }
-        userimage.getChildren().clear();
-         usernom.getChildren().clear();
-         VBU.getChildren().clear();
+            su.updateImage(username,email,tel,adresse,img,id);
+         userimage.getChildren().clear();
+         barimg.getChildren().clear();
          VB.getChildren().clear(); 
          ReadPost();
          setbar();
+        } catch (MessagingException ex) {
+           
+        }
+        
         }
      
      
@@ -843,7 +888,7 @@ public class homeController implements Initializable {
         Stage stage = (Stage)anachropane.getScene().getWindow();
         File file = Fc.showOpenDialog(stage);
         if (file!=null){
-            Path source = Paths.get(file.getAbsoluteFile().toURI());
+             Path source = Paths.get(file.getAbsoluteFile().toURI());
              Path destination = Paths.get("C://xampp/htdocs/pidev/web/images/"+file.getAbsoluteFile().getName());
          //   System.out.println(""+file.getAbsoluteFile().getName());
           Files.copy(source, destination,StandardCopyOption.REPLACE_EXISTING);
@@ -853,9 +898,33 @@ public class homeController implements Initializable {
             User u = new User();
             u=su.findById(UserSession.getUser().getId());
             final int id = u.getId();
-            final String imagen = file.getAbsoluteFile().getName();
-            save.setOnAction(event -> {         
-                    UpdateU(imagen,id);
+            final String imagen =file.getAbsoluteFile().getName();
+            save.setOnAction(event -> {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);    
+            if (susername.getText().length()==0 ||smail.getText().length()==0||sphone.getText().length()==0||sadd.getText().length()==0)
+                   
+             { alert.setTitle("INFORMATION DIALOG");
+                    alert.setHeaderText(null);  
+                    alert.setContentText("Please fill all the fields");
+                    alert.showAndWait();
+             }
+                else if (sphone.getText().length()<8) {
+                    //Dialog.show("Alert", "Price can't be null", new Command("OK"));
+                    alert.setTitle("INFORMATION DIALOG");
+                    alert.setHeaderText(null);  
+                    alert.setContentText("phone number is composed by 8 numbers");
+                    alert.showAndWait();    
+                }
+                       /* else if (<1) {
+                    alert.setTitle("INFORMATION DIALOG");
+                    alert.setHeaderText(null);  
+                    alert.setContentText("Quantity can't be null");
+                    alert.showAndWait();
+                }*/
+                else
+                  { UpdateU(susername.getText(),smail.getText(),Integer.parseInt(sphone.getText()),sadd.getText(),imagen,id);
+                  
+                  }
   
               });
            

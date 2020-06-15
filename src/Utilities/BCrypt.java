@@ -1,5 +1,5 @@
 
-package Utilities;
+package Util;
 
 import java.io.UnsupportedEncodingException;
 import java.security.DigestException;

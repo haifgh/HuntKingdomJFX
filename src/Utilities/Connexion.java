@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Utilities;
+package Util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  * @author JAIDI
  */
 public class Connexion {
-    private static String url= "jdbc:mysql://localhost:3308/pi?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private static String url= "jdbc:mysql://localhost:3306/pidevv";
     private static String usr="root";
     private static String pwd="";
 

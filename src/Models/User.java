@@ -26,7 +26,7 @@ public class User implements Serializable {
 
     private String emailCanonical;
 
-    private boolean enabled;
+    private int enabled;
 
     private String salt;
 
@@ -56,7 +56,7 @@ public class User implements Serializable {
         this.username = username;
         this.password = password;
         }
-    public User(Integer id, String username, String usernameCanonical, String email, String emailCanonical, boolean enabled, String salt, String password, Timestamp lastLogin, String confirmationToken, Timestamp passwordRequestedAt, String roles) {
+    public User(Integer id, String username, String usernameCanonical, String email, String emailCanonical, int enabled, String salt, String password, Timestamp lastLogin, String confirmationToken, Timestamp passwordRequestedAt, String roles) {
         this.id = id;
         this.username = username;
         this.usernameCanonical = usernameCanonical;
@@ -72,7 +72,7 @@ public class User implements Serializable {
        
     }
 
-    public User(Integer id, String username, String usernameCanonical, String email, String emailCanonical, boolean enabled, String password) {
+    public User(Integer id, String username, String usernameCanonical, String email, String emailCanonical, int enabled, String password) {
         this.id = id;
         this.username = username;
         this.usernameCanonical = usernameCanonical;
@@ -82,7 +82,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public User(Integer id, String username, String usernameCanonical, String email, String emailCanonical, boolean enabled, String salt, String password, Timestamp lastLogin, String confirmationToken, Timestamp passwordRequestedAt, String roles,String photo) {
+    public User(Integer id, String username, String usernameCanonical, String email, String emailCanonical, int enabled, String salt, String password, Timestamp lastLogin, String confirmationToken, Timestamp passwordRequestedAt, String roles,String photo) {
         this.id = id;
         this.username = username;
         this.usernameCanonical = usernameCanonical;
@@ -148,11 +148,11 @@ public class User implements Serializable {
         this.emailCanonical = emailCanonical;
     }
 
-    public boolean getEnabled() {
+    public int getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(boolean enabled) {
+    public void setEnabled(int enabled) {
         this.enabled = enabled;
     }
 

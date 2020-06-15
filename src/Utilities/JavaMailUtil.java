@@ -48,8 +48,8 @@ Message message = new MimeMessage(session);
 message.setFrom(new InternetAddress(username));
 message.setRecipients(Message.RecipientType.TO,
 InternetAddress.parse(recepient));
-message.setSubject("Test block");
-message.setText("Bonjour, ce message est un test ...");
+message.setSubject("block");
+message.setText("We've received complaints about your profile. You didn't respect our gidelines. As a result you are blocked");
 return message ;
 } catch (MessagingException e) {
 throw new RuntimeException(e);
@@ -80,8 +80,8 @@ Message message = new MimeMessage(session);
 message.setFrom(new InternetAddress(username));
 message.setRecipients(Message.RecipientType.TO,
 InternetAddress.parse(recepient));
-message.setSubject("Test unblock");
-message.setText("Bonjour, ce message est un test ...");
+message.setSubject("unblock");
+message.setText("You vowed to respect our gidelines . As a result we unblocked you");
 return message ;
 } catch (MessagingException e) {
 throw new RuntimeException(e);

@@ -88,9 +88,9 @@ public class ServiceReclamation implements IReclamationServices {
             PreparedStatement pt = con.prepareStatement("select * from reclamation");
             ResultSet rs = pt.executeQuery();
             while(rs.next()){
-               Reclamation r = new Reclamation (rs.getString(5), rs.getString(4), rs.getString(3), rs.getInt(1), rs.getInt(6), rs.getInt(2));
+             //  Reclamation r = new Reclamation (rs.getString(5), rs.getString(4), rs.getString(3), rs.getInt(1), rs.getInt(6), rs.getInt(2));
                 //Reclamation r = new Reclamation (rs.getInt(6), rs.getInt(2));
-                
+                  Reclamation r = new Reclamation (rs.getString(6), rs.getString(5), rs.getString(4), rs.getInt(1), rs.getInt(3), rs.getInt(2));
                 ls.add(r);
             }
             

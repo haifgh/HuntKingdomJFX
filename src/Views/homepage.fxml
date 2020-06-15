@@ -102,8 +102,8 @@
             </Pane>
             <Pane fx:id="UserD" prefHeight="500.0" prefWidth="930.0" style="-fx-background-color: F8F8FA;">
                <children>
-                  <HBox fx:id="HE" layoutX="64.0" layoutY="14.0" prefHeight="73.0" prefWidth="745.0" />
-                  <Pane fx:id="pnlus" layoutY="107.0" prefHeight="386.0" prefWidth="941.0">
+                  <HBox fx:id="HE" layoutX="296.0" layoutY="14.0" prefHeight="111.0" prefWidth="344.0" />
+                  <Pane fx:id="pnlus" layoutY="157.0" prefHeight="336.0" prefWidth="941.0">
                      <children>
                          <VBox fx:id="VBB" prefHeight="384.0" prefWidth="929.0" />
                      </children>
@@ -128,16 +128,34 @@
                <children>
                   <Pane fx:id="VBS" layoutX="21.0" layoutY="120.0" prefHeight="364.0" prefWidth="920.0">
                      <children>
-                        <ImageView fx:id="changeimg" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                        <Button layoutX="14.0" layoutY="151.0" mnemonicParsing="false" onAction="#settings" text="Button" />
-                        <Button fx:id="save" layoutX="14.0" layoutY="237.0" mnemonicParsing="false" text="save" />
+                        <ImageView fx:id="changeimg" fitHeight="217.0" fitWidth="185.0" layoutX="707.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" />
+                        <Button fx:id="save" layoutX="720.0" layoutY="305.0" mnemonicParsing="false" text="save" />
+                        <JFXTextField fx:id="susername" layoutX="151.0" layoutY="36.0" prefHeight="31.0" prefWidth="185.0" />
+                        <JFXTextField fx:id="sphone" layoutX="151.0" layoutY="191.0" prefHeight="31.0" prefWidth="185.0" />
+                        <JFXTextField fx:id="sadd" layoutX="151.0" layoutY="249.0" prefHeight="31.0" prefWidth="185.0" />
+                        <Label layoutX="17.0" layoutY="57.0" text="Username" />
+                        <Label layoutX="16.0" layoutY="206.0" prefHeight="21.0" prefWidth="109.0" text="Phone Number" />
+                        <Label layoutX="16.0" layoutY="267.0" prefHeight="21.0" prefWidth="71.0" text="Adress" />
+                        <Label layoutX="17.0" layoutY="131.0" text="E-mail">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <JFXTextField fx:id="smail" layoutX="151.0" layoutY="110.0" prefHeight="31.0" prefWidth="185.0" />
+                        <Button fx:id="browse" layoutX="800.0" layoutY="305.0" mnemonicParsing="false" onAction="#settings" text="Browse" />
                      </children></Pane>
+                  <Text layoutX="37.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings">
+                     <font>
+                        <Font size="45.0" />
+                     </font>
+                  </Text>
                </children></Pane>
             <Pane fx:id="pnlprofile" prefHeight="500.0" prefWidth="930.0" style="-fx-background-color: F8F8FA;">
                <children>
                   <Pane fx:id="pnlst" layoutY="129.0" prefHeight="364.0" prefWidth="687.0">
                      <children>
                         <VBox fx:id="VB" prefHeight="364.0" prefWidth="687.0" />
+                        <VBox fx:id="VBUP" layoutY="108.0" prefHeight="167.0" prefWidth="677.0" />
                      </children>
                   </Pane>
                   <Button fx:id="btnpost" layoutX="550.0" layoutY="51.0" mnemonicParsing="false" onAction="#CreatePost" prefHeight="13.0" prefWidth="71.0" style="-fx-background-color: green; -fx-background-radius: 5em;" text="post" />
@@ -148,21 +166,40 @@
                         <Pane fx:id="usernom" layoutX="101.0" layoutY="139.0" prefHeight="45.0" prefWidth="77.0" />
                         <HBox layoutY="190.0" prefHeight="71.0" prefWidth="229.0">
                            <children>
-                              <Label fx:id="follower" prefHeight="21.0" prefWidth="77.0" text="Label">
-                                 <padding>
-                                    <Insets left="10.0" />
-                                 </padding>
-                              </Label>
-                              <Label fx:id="following" alignment="CENTER" prefHeight="21.0" prefWidth="65.0" text="Label">
-                                 <padding>
-                                    <Insets left="10.0" />
-                                 </padding>
-                              </Label>
-                              <Label fx:id="following1" alignment="CENTER" prefHeight="21.0" prefWidth="72.0" text="Label">
-                                 <padding>
-                                    <Insets left="10.0" />
-                                 </padding>
-                              </Label>
+                              <Pane prefHeight="71.0" prefWidth="107.0">
+                                 <children>
+                                    <Label fx:id="follower" layoutX="18.0" prefHeight="21.0" prefWidth="77.0" text="Label">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Bernard MT Condensed" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Text layoutX="9.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="followers">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="71.0" prefWidth="147.0">
+                                 <children>
+                                    <Label fx:id="following" alignment="CENTER" layoutX="32.0" layoutY="2.0" prefHeight="21.0" prefWidth="65.0" text="Label">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Bernard MT Condensed" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Text layoutX="32.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="following">
+                                       <font>
+                                          <Font name="Calibri" size="19.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </Pane>
                            </children>
                         </HBox>
                      </children>
