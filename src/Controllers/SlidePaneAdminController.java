@@ -80,6 +80,22 @@ public class SlidePaneAdminController implements Initializable {
 
         content.getChildren().setAll(p);
     }
+
+    @FXML
+    private void goToProducts(ActionEvent event) throws IOException {
+        Parent p       = FXMLLoader.load(getClass().getResource("/Views/ProductInterface.fxml"));
+        HBox   content = (HBox) tabPane.getParent().getParent().getParent().getParent().getScene().lookup("#content");
+
+        content.getChildren().setAll(p);
+    }
+
+    @FXML
+    private void goToCat(ActionEvent event) throws IOException {
+        Parent p       = FXMLLoader.load(getClass().getResource("/Views/CategoryInterface.fxml"));
+        HBox   content = (HBox) tabPane.getParent().getParent().getParent().getParent().getScene().lookup("#content");
+
+        content.getChildren().setAll(p);
+    }
 }
 
 

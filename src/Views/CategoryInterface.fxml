@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="466.0" prefWidth="781.0" style="-fx-background-color: white;" styleClass="tools-btn" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.CategoryController">
+   <children>
+      <VBox prefHeight="466.0" prefWidth="156.0" style="-fx-background-color: #101214;">
+         <children>
+            <Pane prefHeight="138.0" prefWidth="156.0">
+               <children>
+                  <Label layoutX="19.0" layoutY="87.0" prefHeight="32.0" prefWidth="118.0" text="DASHBOARD" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="logo" fitHeight="60.0" fitWidth="60.0" layoutX="45.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/images/logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <JFXButton fx:id="add_btn" alignment="BASELINE_CENTER" buttonType="RAISED" onAction="#AddCat" prefHeight="32.0" prefWidth="154.0" style="-fx-background-color: #03DAC6;" text="Add">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="update_btn" alignment="BASELINE_CENTER" buttonType="RAISED" onAction="#UpdateCat" prefHeight="32.0" prefWidth="153.0" style="-fx-background-color: #BB86FC;" text="Modify">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="delete_btn" alignment="BASELINE_CENTER" buttonType="RAISED" onAction="#DeleteCat" prefHeight="32.0" prefWidth="153.0" style="-fx-background-color: #CF6679;" text="Delete">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="refresh_btn" alignment="BASELINE_CENTER" onAction="#refresh" prefHeight="29.0" prefWidth="153.0" style="-fx-background-color: #101214;" text="Refresh" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </VBox>
+      <Pane layoutX="154.0" layoutY="46.0" prefHeight="420.0" prefWidth="624.0">
+         <children>
+            <TableView fx:id="Table_categorie" layoutX="86.0" layoutY="56.0" onMouseClicked="#selectionne" prefHeight="364.0" prefWidth="452.0" styleClass="tak-btn">
+               <columns>
+                  <TableColumn fx:id="nom_col" minWidth="0.0" prefWidth="451.0" text="Nom" />
+               </columns>
+            </TableView>
+            <Label fx:id="G" layoutX="198.0" layoutY="-5.0" text="Gestion Categories">
+               <font>
+                  <Font name="Arial Black" size="25.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <JFXTextField fx:id="tfsearchbyid" alignment="BASELINE_LEFT" labelFloat="true" layoutX="170.0" layoutY="14.0" onAction="#search" prefHeight="29.0" prefWidth="129.0" promptText="Search here" style="-fx-background-color: #ffffff;" unFocusColor="#559aff">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXTextField>
+   </children>
+</AnchorPane>

@@ -23,7 +23,7 @@ import Utilities.UserSession;
 public class PanierServices {
     CommandeServices              cs  = new CommandeServices();
     LigneCommandeServices         lcs = new LigneCommandeServices();
-    ProductServices               ps  = new ProductServices();
+    ProductServices1               ps  = new ProductServices1();
     private Map<Integer, Integer> p;
     private Commande              c;
     private LigneCommande         lc;
@@ -85,7 +85,13 @@ public class PanierServices {
                 produit = ps.getP(key);
 
                 return key;
-            })  .map((key) -> produit.getPrix() * p.get(key)).reduce(prix, Integer::sum);
+            })  .map((key) -> {
+                if(produit.getPrix_promo()==0)
+                return produit.getPrix() * p.get(key);
+                else
+                return  produit.getPrix_promo() * p.get(key);
+            })
+                .reduce(prix, Integer::sum);
 
         return prix;
     }

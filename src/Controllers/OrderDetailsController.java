@@ -33,6 +33,7 @@ import Models.LigneCommande;
 import Services.CommandeServices;
 import Services.LigneCommandeServices;
 import Services.ProductServices;
+import Services.ProductServices1;
 import Services.UserServices;
 
 /**
@@ -145,8 +146,8 @@ Callback<TableColumn<LigneCommande, String>, TableCell<LigneCommande, String>> c
                                        setText(null);
                                    } else {
                                        LigneCommande p = getTableView().getItems().get(getIndex());
-
-                                       setText(ps.getP(p.getIdProduit()).getPrix().toString()+" TND");
+                                        setText(ps.getP(p.getIdProduit()).getPrix()+" TND");
+                                      
                                    }
                                }
                            };

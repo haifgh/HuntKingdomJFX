@@ -27,6 +27,10 @@ import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import Models.User;
 
 import Services.UserServices;
+import Utilities.UserSession;
+import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 
 /**
  * FXML Controller class
@@ -38,6 +42,10 @@ public class MainController implements Initializable {
     private JFXHamburger burger;
     @FXML
     private JFXDrawer    drawer;
+    @FXML
+    private AnchorPane main;
+    @FXML
+    private HBox content;
 
     /**
      * Initializes the controller class.
@@ -56,6 +64,18 @@ public class MainController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        Parent p;    
+        try {
+            if(UserSession.getInstance().getUser().isAdmin()){
+                p = FXMLLoader.load(getClass().getResource("/Views/PieChart.fxml"));
+            content.getChildren().setAll(p);
+            }
+            
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
 
         HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(burger);
 

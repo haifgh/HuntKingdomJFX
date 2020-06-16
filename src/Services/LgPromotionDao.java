@@ -49,7 +49,7 @@ public class LgPromotionDao implements IServiceLgPromoDao {//LgPromotionDAOImpl 
                // ));
                 lsPromo.add(new Promotion(RS.getInt("id_promo"), RS.getString("nom"), RS.getTimestamp("date_debut").toString(), RS.getTimestamp("date_fin").toString(), RS.getInt("taux_reduction")
                 ));
-                lspdt.add(new Produit(RS.getInt("id_pdt"), RS.getInt("qte"), RS.getInt("prix"), RS.getDouble("$prix_promo")
+                lspdt.add(new Produit(RS.getInt("id_pdt"), RS.getInt("qte"), RS.getInt("prix"), RS.getInt("$prix_promo")
                 ));
             }
                 lsLgPromo.stream().forEach((LignePromotion lp) -> {System.out.println(lp.toString());});

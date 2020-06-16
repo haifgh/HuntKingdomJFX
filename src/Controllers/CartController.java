@@ -41,7 +41,7 @@ import com.jfoenix.controls.JFXButton;
 import Models.Produit;
 
 import Services.PanierServices;
-import Services.ProductServices;
+import Services.ProductServices1;
 
 import Utilities.UserSession;
 
@@ -62,7 +62,7 @@ public class CartController implements Initializable {
     private Label                                            total;
     @FXML
     private TableView<Map.Entry<Integer, Integer>>           table;
-    ProductServices                                          ps;
+    ProductServices1                                          ps;
     @FXML
     private JFXButton                                        valider;
     @FXML
@@ -92,7 +92,7 @@ public class CartController implements Initializable {
             valider.setDisable(true);
         }
 
-        ps   = new ProductServices();
+        ps   = new ProductServices1();
         pas  = new PanierServices();
         prix = pas.getPrixPanier();
         items.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<Integer, Integer>, String>,
@@ -125,8 +125,11 @@ public class CartController implements Initializable {
                                       public ObservableValue<String> call(
                                               TableColumn.CellDataFeatures<Map.Entry<Integer, Integer>, String> p) {
                                           Produit prod = ps.getP(p.getValue().getKey());
-                                          Integer t    = prod.getPrix() * p.getValue().getValue();
-
+                                          Integer t;
+                                          if(prod.getPrix_promo()==0)
+                                          t = prod.getPrix() * p.getValue().getValue();
+                                          else
+                                          t    = prod.getPrix_promo() * p.getValue().getValue();
                                           return new SimpleStringProperty(t.toString()+" TND");
                                       }
                                   });
