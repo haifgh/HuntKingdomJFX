@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" fx:id="anachropane" minHeight="550.0" minWidth="800.0" prefHeight="553.0" prefWidth="1053.0" style="-fx-background-color: F8F8FA;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.homeController">
+   <opaqueInsets>
+      <Insets bottom="60.0" />
+   </opaqueInsets>
+   <children>
+      <TextField fx:id="searchbar" layoutX="429.0" layoutY="15.0" prefHeight="37.0" prefWidth="315.0" promptText=" search" style="-fx-background-color: F8F8FA; -fx-background-radius: 10em; -fx-border-radius: 10em; -fx-border-color: grey;" />
+      <Pane prefHeight="553.0" prefWidth="60.0" style="-fx-background-color: white;">
+         <padding>
+            <Insets bottom="20.0" />
+         </padding>
+         <children>
+            <VBox prefHeight="553.0" prefWidth="60.0" spacing="20.0">
+               <children>
+                  <Pane prefHeight="160.0" prefWidth="74.0" />
+                  <Button fx:id="btnhome" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#handleClicks" prefHeight="40.0" prefWidth="45.0" stylesheets="@../css/style.css">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/icons8_home_32px_1.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets bottom="8.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="btnprofile" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#handleClicks" prefHeight="45.0" prefWidth="32.0" stylesheets="@../css/style.css">
+                     <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/icons8_contacts_32px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets bottom="8.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="btnclaims" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#handleClicks" prefHeight="39.0" prefWidth="44.0" stylesheets="@../css/style.css">
+                     <graphic>
+                        <ImageView fitHeight="34.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/icons8_about_32px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets bottom="8.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="btnsettings" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#handleClicks" prefHeight="31.0" prefWidth="163.0" stylesheets="@../css/style.css">
+                     <graphic>
+                        <ImageView fitHeight="33.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/icons8_services_32px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets bottom="8.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </VBox>
+         </children>
+      </Pane>
+      <StackPane layoutX="87.0" layoutY="58.0" prefHeight="493.0" prefWidth="947.0" style="-fx-background-color: white;">
+         <children>
+            <Pane fx:id="pnlclaims" prefHeight="500.0" prefWidth="930.0" style="-fx-background-color: F8F8FA;">
+               <children>
+                  <Text fill="#807c7c" layoutX="28.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your claims" wrappingWidth="228.970703125">
+                     <font>
+                        <Font name="Berlin Sans FB Bold" size="26.0" />
+                     </font>
+                  </Text>
+                  <Pane fx:id="pnlcl" layoutY="71.0" prefHeight="422.0" prefWidth="947.0">
+                     <children>
+                        <VBox fx:id="VBR" prefHeight="422.0" prefWidth="929.0" />
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+            <Pane fx:id="UserD" prefHeight="500.0" prefWidth="930.0" style="-fx-background-color: F8F8FA;">
+               <children>
+                  <HBox fx:id="HE" layoutX="296.0" layoutY="14.0" prefHeight="111.0" prefWidth="344.0" />
+                  <Pane fx:id="pnlus" layoutY="157.0" prefHeight="336.0" prefWidth="941.0">
+                     <children>
+                         <VBox fx:id="VBB" prefHeight="384.0" prefWidth="929.0" />
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+            <Pane fx:id="pnlhome" prefHeight="493.0" prefWidth="921.0" style="-fx-background-color: F8F8FA;">
+               <children>
+                  <Text fill="#6a6786" layoutX="30.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nice to see you">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Text>
+                  <Pane fx:id="panesl" layoutX="7.0" layoutY="73.0" prefHeight="411.0" prefWidth="920.0">
+                     <children>
+                        <VBox fx:id="VBH" layoutY="-1.0" prefHeight="422.0" prefWidth="920.0" />
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+          <Pane fx:id="pnlsettings" prefHeight="500.0" prefWidth="930.0" style="-fx-background-color: F8F8FA;">
+               <children>
+                  <Pane fx:id="VBS" layoutX="21.0" layoutY="120.0" prefHeight="364.0" prefWidth="920.0">
+                     <children>
+                        <ImageView fx:id="changeimg" fitHeight="217.0" fitWidth="185.0" layoutX="707.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" />
+                        <Button fx:id="save" layoutX="720.0" layoutY="305.0" mnemonicParsing="false" text="save" />
+                        <JFXTextField fx:id="susername" layoutX="151.0" layoutY="36.0" prefHeight="31.0" prefWidth="185.0" />
+                        <JFXTextField fx:id="sphone" layoutX="151.0" layoutY="191.0" prefHeight="31.0" prefWidth="185.0" />
+                        <JFXTextField fx:id="sadd" layoutX="151.0" layoutY="249.0" prefHeight="31.0" prefWidth="185.0" />
+                        <Label layoutX="17.0" layoutY="57.0" text="Username" />
+                        <Label layoutX="16.0" layoutY="206.0" prefHeight="21.0" prefWidth="109.0" text="Phone Number" />
+                        <Label layoutX="16.0" layoutY="267.0" prefHeight="21.0" prefWidth="71.0" text="Adress" />
+                        <Label layoutX="17.0" layoutY="131.0" text="E-mail">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <JFXTextField fx:id="smail" layoutX="151.0" layoutY="110.0" prefHeight="31.0" prefWidth="185.0" />
+                        <Button fx:id="browse" layoutX="800.0" layoutY="305.0" mnemonicParsing="false" onAction="#settings" text="Browse" />
+                     </children></Pane>
+                  <Text layoutX="37.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings">
+                     <font>
+                        <Font size="45.0" />
+                     </font>
+                  </Text>
+               </children></Pane>
+            <Pane fx:id="pnlprofile" prefHeight="500.0" prefWidth="930.0" style="-fx-background-color: F8F8FA;">
+               <children>
+                  <Pane fx:id="pnlst" layoutY="129.0" prefHeight="364.0" prefWidth="687.0">
+                     <children>
+                        <VBox fx:id="VB" prefHeight="364.0" prefWidth="687.0" />
+                        <VBox fx:id="VBUP" layoutY="108.0" prefHeight="167.0" prefWidth="677.0" />
+                     </children>
+                  </Pane>
+                  <Button fx:id="btnpost" layoutX="550.0" layoutY="51.0" mnemonicParsing="false" onAction="#CreatePost" prefHeight="13.0" prefWidth="71.0" style="-fx-background-color: green; -fx-background-radius: 5em;" text="post" />
+                  <JFXTextField fx:id="testpost" focusColor="#498038" layoutX="125.0" layoutY="48.0" maxWidth="458.0" minWidth="401.0" prefHeight="37.0" prefWidth="401.0" promptText="what's in your mind ?" />
+                  <Pane fx:id="userinfo" layoutX="715.0" layoutY="14.0" prefHeight="261.0" prefWidth="229.0" style="-fx-background-color: white;">
+                     <children>
+                        <VBox fx:id="userimage" layoutX="59.0" layoutY="15.0" prefHeight="124.0" prefWidth="136.0" />
+                        <Pane fx:id="usernom" layoutX="101.0" layoutY="139.0" prefHeight="45.0" prefWidth="77.0" />
+                        <HBox layoutY="190.0" prefHeight="71.0" prefWidth="229.0">
+                           <children>
+                              <Pane prefHeight="71.0" prefWidth="107.0">
+                                 <children>
+                                    <Label fx:id="follower" layoutX="18.0" prefHeight="21.0" prefWidth="77.0" text="Label">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Bernard MT Condensed" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Text layoutX="9.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="followers">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="71.0" prefWidth="147.0">
+                                 <children>
+                                    <Label fx:id="following" alignment="CENTER" layoutX="32.0" layoutY="2.0" prefHeight="21.0" prefWidth="65.0" text="Label">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Bernard MT Condensed" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Text layoutX="32.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="following">
+                                       <font>
+                                          <Font name="Calibri" size="19.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </Pane>
+                  <VBox layoutX="712.0" layoutY="284.0" prefHeight="197.0" prefWidth="229.0" style="-fx-background-color: white;">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="   FOLLOWING" wrappingWidth="184.66650390625">
+                           <font>
+                              <Font name="Arial Rounded MT Bold" size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="50.0" top="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <VBox fx:id="lisf" prefHeight="161.0" prefWidth="235.0">
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin></VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </StackPane>
+      <Pane fx:id="VBU" layoutX="770.0" layoutY="9.0" prefHeight="51.0" prefWidth="200.0">
+         <children>
+            <Pane fx:id="barimg" layoutY="6.0" prefHeight="45.0" prefWidth="77.0" />
+            <Pane fx:id="barname" layoutX="77.0" layoutY="10.0" prefHeight="31.0" prefWidth="71.0" />
+         </children></Pane>
+      <Button fx:id="btnsearch" layoutX="690.0" layoutY="16.0" mnemonicParsing="false" onAction="#searchUser" prefHeight="31.0" prefWidth="42.0" style="-fx-background-color: F8F8FA;">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="22.0" onDragDetected="#searchUser" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/icons8_search_filled_50px.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="logout" layoutX="943.0" layoutY="22.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="12.0" style="-fx-background-color: F8F8FA;" />
+      <ImageView fx:id="userimg" fitHeight="45.0" fitWidth="50.0" layoutX="334.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="998.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/icons8_exit_26px.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

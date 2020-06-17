@@ -19,10 +19,9 @@ public class HuntKingdomJFX extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/Main.fxml"));
-        
+        //Parent root = FXMLLoader.load(getClass().getResource("/Views/Main.fxml"));
+        Parent  root = FXMLLoader.load(getClass().getResource("/Views/login.fxml"));
         Scene scene = new Scene(root);
-        
         stage.setScene(scene);
         stage.show();
     }

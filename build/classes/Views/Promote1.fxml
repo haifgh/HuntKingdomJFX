@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="root" disable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.TableController">
+   <stylesheets>
+        <URL value="@stylesheet.css" />
+    </stylesheets>
+    <children>
+      <TableView fx:id="table" layoutX="66.0" layoutY="37.0" onMouseEntered="#affiche_like" prefHeight="441.0" prefWidth="751.0" stylesheets="@stylesheet.css">
+        <columns>
+            <TableColumn fx:id="col_nom" prefWidth="135.99998474121094" style="-fx-alignement: center;" text="NAME" />
+            <TableColumn fx:id="col_datedebut" prefWidth="169.33328247070312" text="START DATE" />
+            <TableColumn fx:id="col_datefin" prefWidth="175.33340454101562" text="END DATE" />
+            <TableColumn fx:id="col_taux" prefWidth="114.66668701171875" text="RATE" />
+            <TableColumn fx:id="col_action" minWidth="0.0" prefWidth="230.6666259765625" text="ACTION" />
+        </columns>
+      </TableView>
+      <TextField fx:id="search_field" layoutX="355.0" onMouseEntered="#affiche_like" prefHeight="25.0" prefWidth="186.0" promptText="Search">
+         <cursor>
+         </cursor></TextField>
+      <Button layoutX="65.0" layoutY="-29.0" minWidth="30.0" mnemonicParsing="false" onMouseClicked="#add_promo" prefHeight="32.0" prefWidth="30.0" textFill="#b91b1b">
+         <font>
+            <Font name="Calibri Bold" size="13.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="517.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Icons/search.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="70.0" layoutY="-20.0" onMouseClicked="#plusAction" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Icons/plus.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

@@ -1,0 +1,33 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+
+.jfx-tab-pane .headers-region {
+    -fx-background-color:  #013220;
+}
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color:  #013220;
+}
+.jfx-tab-pane .tab-selected-line {
+    -fx-background-color: green;
+}
+.jfx-tab-pane .headers-region .tab .tab-container .tab-label {
+    -fx-text-fill: rgba(255,255,255, .87);
+    -fx-font-weight: BOLD;
+    -fx-padding: 10 16 10 16;
+    -fx-font-size: 20;
+}
+.custom-buttonn{
+    -fx-background-color:#27a816;
+    -fx-font-weight: BOLD;
+    -fx-font-size: 20;
+    -fx-text-fill:#ffffff;
+    -fx-padding:  0.5em 1em;
+    -fx-border-insets: 0.5em 0.5em;
+    -fx-background-insets:0.5em 0.5em;
+}
+

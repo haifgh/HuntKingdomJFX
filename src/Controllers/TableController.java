@@ -7,16 +7,11 @@ package Controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -38,9 +33,6 @@ import com.jfoenix.controls.JFXButton;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
-import java.awt.Image;
-import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
 import javafx.scene.image.ImageView;
 
 
@@ -120,7 +112,7 @@ public class TableController implements Initializable {
                         Promotion p = getTableView().getItems().get(getIndex());
 
                         final JFXButton details = new JFXButton();
-                        details.setGraphic(new ImageView("Icons/zoom.png"));
+                        details.setGraphic(new ImageView("icons/zoom.png"));
                                       details.getStyleClass().add("custom-button");
                                       details.setStyle("-fx-background-color:white");
                                       details.setOnAction(
@@ -147,7 +139,7 @@ public class TableController implements Initializable {
                          final Button edit = new Button("");
                          edit.getStyleClass().add("custom-button");
                                       edit.setStyle("-fx-background-color:white");
-                         edit.setGraphic(new ImageView("Icons/15586770221582004499-16.png"));
+                         edit.setGraphic(new ImageView("icons/15586770221582004499-16.png"));
                          edit.setOnAction(e->{
                              Promotion pr = getTableView().getItems().get(getIndex());
                                     FXMLLoader loader = new FXMLLoader(
@@ -175,7 +167,7 @@ public class TableController implements Initializable {
                            final Button delete = new Button("");
                            delete.getStyleClass().add("custom-button");
                                       delete.setStyle("-fx-background-color:white");
-                           delete.setGraphic(new ImageView("Icons/14458160321582004493-16.png"));
+                           delete.setGraphic(new ImageView("icons/14458160321582004493-16.png"));
                            
                            delete.setOnAction(e->{
                            PromotionDao srvP=new PromotionDao();
@@ -190,7 +182,7 @@ public class TableController implements Initializable {
                             final Button share = new Button("");
                             share.getStyleClass().add("custom-button");
                             share.setStyle("-fx-background-color:white");
-                            share.setGraphic(new ImageView("Icons/15307804281582004498-16.png"));
+                            share.setGraphic(new ImageView("icons/15307804281582004498-16.png"));
                              
                             share.setOnAction(e->{
                              Twilio.init(ACCOUNT_SID, AUTH_TOKEN);

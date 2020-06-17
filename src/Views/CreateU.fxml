@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="anac" minHeight="550.0" minWidth="800.0" prefHeight="553.0" prefWidth="1053.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.CreateUController">
+     <stylesheets>
+        <URL value="@/css/style.css" />
+    </stylesheets>
+   <children>
+        <AnchorPane prefHeight="503.0" prefWidth="382.0" style="-fx-background-color: #9ACD32;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                
+                <Label alignment="CENTER" layoutX="50.0" layoutY="262.0" prefHeight="37.0" prefWidth="295.0" text="Hunt kingdom" textFill="WHITE">
+                    <font>
+                        <Font name="Segoe UI" size="38.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="89.0" layoutY="323.0" prefHeight="23.0" prefWidth="205.0" text="Find all you need" textFill="WHITE">
+                    <font>
+                        <Font name="Segoe UI" size="16.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <Pane layoutX="423.0" layoutY="61.0" prefHeight="453.0" prefWidth="578.0" AnchorPane.bottomAnchor="39.0" AnchorPane.topAnchor="61.0">
+            <children>
+            <JFXPasswordField fx:id="CtextPass" layoutX="2.0" layoutY="261.0" maxWidth="564.0" minWidth="265.0" prefHeight="37.0" prefWidth="564.0" promptText="Password" />
+            <JFXTextField fx:id="Ctextuser" layoutX="2.0" layoutY="65.0" maxWidth="564.0" minWidth="254.0" prefHeight="37.0" prefWidth="564.0" promptText="Username" />
+            <JFXTextField fx:id="Ctextmail" layoutX="2.0" layoutY="169.0" maxWidth="564.0" minWidth="254.0" prefHeight="37.0" prefWidth="564.0" promptText="Email" />
+            <Button fx:id="Csignup" layoutX="254.0" layoutY="381.0" mnemonicParsing="false" onAction="#Create" text="Sign up" />
+            </children>
+        </Pane>
+        
+    </children>
+</AnchorPane>

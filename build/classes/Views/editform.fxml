@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="448.0" prefWidth="622.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.EditformController">
+   <children>
+      <JFXDatePicker fx:id="startdate" defaultColor="#179d4b" layoutX="178.0" layoutY="80.0" prefHeight="28.0" prefWidth="456.0" promptText="Start Date" />
+      <JFXDatePicker fx:id="enddate" defaultColor="#179d4b" layoutX="178.0" layoutY="167.0" prefHeight="28.0" prefWidth="456.0" promptText="End Date" />
+      <JFXButton fx:id="Confirm" buttonType="RAISED" layoutX="178.0" layoutY="321.0" onMouseClicked="#editAction" prefHeight="34.0" prefWidth="456.0" style="-fx-background-color: #27a816;" text="CONFIRM" textFill="#f2f2f2">
+         <font>
+            <Font name="Monospaced Bold" size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXTextField fx:id="name" focusColor="#4d4d4d" layoutX="175.0" layoutY="-2.0" prefHeight="25.0" prefWidth="456.0" promptText="Name">
+         <font>
+            <Font name="Calibri" size="18.0" />
+         </font></JFXTextField>
+      <JFXTextField fx:id="rate" focusColor="#4d4d4d" layoutX="181.0" layoutY="238.0" prefHeight="25.0" prefWidth="456.0" promptText="Rate %">
+         <font>
+            <Font name="Calibri" size="18.0" />
+         </font></JFXTextField>
+   </children>
+</AnchorPane>

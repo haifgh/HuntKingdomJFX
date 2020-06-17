@@ -52,10 +52,7 @@ public class MainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        UserServices us = new UserServices();
-        User         u  = new User("iheb", "iheb");
-
-        us.Authentification(u);
+        
 
         try {
             VBox vbox = FXMLLoader.load(getClass().getResource("/Views/SlidePane.fxml"));

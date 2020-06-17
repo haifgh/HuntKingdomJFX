@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="HuntKingdomJFX.jnlp">
+  <information>
+    <title>HuntKingdomJFX</title>
+    <vendor>rejeb</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="HuntKingdomJFX.jar" size="812095" download="eager" />
+    <jar href="lib\JavaFileUploader.jar" size="4633" download="eager" />
+    <jar href="lib\charm-glisten-4.4.1.jar" size="1040787" download="eager" />
+    <jar href="lib\controlsfx-8.40.11.jar" size="985420" download="eager" />
+    <jar href="lib\controlsfx-8.40.12.jar" size="996389" download="eager" />
+    <jar href="lib\fontawesomefx-8.5.jar" size="181458" download="eager" />
+    <jar href="lib\fontawesomefx-8.9.jar" size="571068" download="eager" />
+    <jar href="lib\gson-2.8.6.jar" size="240255" download="eager" />
+    <jar href="lib\itextpdf-5.4.0.jar" size="1889485" download="eager" />
+    <jar href="lib\itextpdf-5.5.1.jar" size="2135213" download="eager" />
+    <jar href="lib\itextpdf-5.5.9.jar" size="2287148" download="eager" />
+    <jar href="lib\javax.mail.jar" size="659033" download="eager" />
+    <jar href="lib\jfoenix-8.0.2.jar" size="2442326" download="eager" />
+    <jar href="lib\jfoenix-8.0.8.jar" size="2708772" download="eager" />
+    <jar href="lib\jfoenix-9.0.9.jar" size="2414624" download="eager" />
+    <jar href="lib\jfoenix.jar" size="2414624" download="eager" />
+    <jar href="lib\json-simple-1.1.jar" size="16046" download="eager" />
+    <jar href="lib\mysql-connector-java-8.0.19.jar" size="2356711" download="eager" />
+    <jar href="lib\openjfx-dialogs-1.0.3.jar" size="149178" download="eager" />
+    <jar href="lib\sample.jar" size="4401" download="eager" />
+    <jar href="lib\stripe-java-18.14.0.jar" size="3201541" download="eager" />
+    <jar href="lib\stripe-java-19.15.0.jar" size="3102616" download="eager" />
+    <jar href="lib\twilio-7.0.0-jar-with-dependencies.jar" size="6928990" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="HuntKingdomJFX" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="huntkingdomjfx.HuntKingdomJFX"  name="HuntKingdomJFX" />
+  <update check="always"/>
+</jnlp>
