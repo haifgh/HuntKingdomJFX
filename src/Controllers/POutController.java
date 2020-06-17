@@ -170,7 +170,7 @@ public class POutController implements Initializable {
             while (rs.next()) {
                 conn = Connexion.getInstance();
                 //data.addAll(data);
-                data.add(new Produit(rs.getInt(1),rs.getInt(2),rs.getString(3), rs.getInt(4), rs.getInt(5),rs.getInt(6),rs.getString(7)));
+                data.add(new Produit(rs.getInt(1),rs.getInt(2),rs.getString(3), rs.getInt(4), rs.getInt(5),rs.getInt(7),rs.getString(6)));
             }
         } catch (SQLException ex) {
             System.err.println("Error" + ex);

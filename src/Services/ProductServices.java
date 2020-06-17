@@ -188,8 +188,8 @@ public class ProductServices {
                       E.setNom(rs.getString(3));
                       E.setQte(rs.getInt(4));
                       E.setPrix(rs.getInt(5));
-                      E.setPrix_promo(rs.getInt(6));
-                      E.setDescription(rs.getString(7));
+                      E.setPrix_promo((int)rs.getDouble(7));
+                      E.setDescription(rs.getString(6));
                       E.setPhoto(rs.getString(8));
                       ListProduit.add(E);                      
           }                        

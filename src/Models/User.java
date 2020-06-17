@@ -63,6 +63,10 @@ public class User implements Serializable {
   
 
     private String roles;
+
+    public User(Integer id) {
+        this.id = id;
+    }
   
     
    

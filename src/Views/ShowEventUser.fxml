@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="593.0" prefWidth="1059.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ShowEventUserController">
+   <children>
+      <TableView fx:id="tableEvent" layoutX="477.0" layoutY="114.0" prefHeight="238.0" prefWidth="556.0">
+         <columns>
+            <TableColumn fx:id="nomEvent" prefWidth="168.0" text="nom" />
+            <TableColumn fx:id="descriptionEvent" prefWidth="161.0" text="description" />
+            <TableColumn fx:id="colNbrPlace" prefWidth="75.0" text="place" />
+            <TableColumn fx:id="placeRestante" prefWidth="151.0" text="place restante" />
+         </columns>
+      </TableView>
+      <Button fx:id="btnParticiper" layoutX="133.0" layoutY="538.0" mnemonicParsing="false" onAction="#participer" prefHeight="31.0" prefWidth="117.0" style="-fx-background-color: #b2d450;" text="participer" />
+      <Label fx:id="nomLabel" layoutX="28.0" layoutY="151.0" prefHeight="31.0" prefWidth="83.0" text="Titre">
+         <font>
+            <Font name="System Italic" size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="nom" layoutX="133.0" layoutY="154.0" prefHeight="31.0" prefWidth="297.0" />
+      <Label fx:id="description" alignment="TOP_LEFT" layoutX="141.0" layoutY="261.0" prefHeight="31.0" prefWidth="297.0" />
+      <ImageView fx:id="image" fitHeight="143.0" fitWidth="313.0" layoutX="133.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="btnAnnuler" layoutX="305.0" layoutY="538.0" mnemonicParsing="false" onAction="#annule" prefHeight="31.0" prefWidth="117.0" style="-fx-background-color: #e74042;" text="annuler" />
+      <Label fx:id="descriptionLabel" layoutX="14.0" layoutY="258.0" prefHeight="36.0" prefWidth="133.0" text="Decription">
+         <font>
+            <Font name="System Italic" size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="imageLabel" layoutX="21.0" layoutY="374.0" prefHeight="21.0" prefWidth="83.0" text="Image">
+         <font>
+            <Font name="System Italic" size="25.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
